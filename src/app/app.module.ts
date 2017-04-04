@@ -5,8 +5,12 @@ import { HttpModule } from '@angular/http';
 import { Routes, RouterModule } from '@angular/router';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
+import { AlertService } from './_services/alert.service';
 import { AuthenticationService } from './_services/authentication.service';
 import { UserService } from './_services/user.service';
+
+import { AlertComponent } from './_helpers/alert.component';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -18,7 +22,8 @@ import { HomeComponent } from './home/home.component';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +38,7 @@ import { HomeComponent } from './home/home.component';
     ])
   ],
   providers: [
+    AlertService,
     AuthenticationService,
     UserService,
   ],

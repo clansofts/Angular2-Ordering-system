@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { User } from './_models/user';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app works!';
+  currentUser: User;
+
+  constructor() {
+
+  }
+
 }
