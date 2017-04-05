@@ -12,10 +12,13 @@ import { UserService } from './_services/user.service';
 
 import { AlertComponent } from './_helpers/alert.component';
 
+import { AuthGuard } from './_guards/auth.guard';
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
+import { FriendsComponent } from './friends/friends.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,8 @@ import { HomeComponent } from './home/home.component';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    AlertComponent
+    AlertComponent,
+    FriendsComponent
   ],
   imports: [
     BrowserModule,
@@ -34,12 +38,18 @@ import { HomeComponent } from './home/home.component';
       { path: '', component: HomeComponent },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
+
+      { path: 'friends', component: FriendsComponent, canActivate: [AuthGuard]},
+
       { path: '**', redirectTo: '' }
     ])
   ],
   providers: [
+    AuthGuard,
+
     AlertService,
     AuthenticationService,
+
     UserService,
   ],
   bootstrap: [AppComponent]

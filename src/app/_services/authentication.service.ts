@@ -3,9 +3,14 @@ import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 
+import { User } from '../_models/user';
+
 @Injectable()
 export class AuthenticationService {
-    constructor(private http: Http) { }
+
+  currentUser: User;
+
+  constructor(private http: Http) { }
 
     login(email: string, password: string) {
         return this.http.post('http://localhost:8090/auth/login', { email: email, password: password })
@@ -19,7 +24,15 @@ export class AuthenticationService {
     }
 
     logout() {
-        // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
     }
+
+    getCurrentUser(){
+      return JSON.parse(localStorage.getItem('currentUser'));
+    }
+
+    isLoggedIn(){
+      return (this.getCurrentUser()) ? true : false;
+    }
+
 }
