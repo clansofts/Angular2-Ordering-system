@@ -19,6 +19,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { FriendsComponent } from './friends/friends.component';
+import {AppRoutingModule} from "./app-routing.module";
 
 @NgModule({
   declarations: [
@@ -34,15 +35,7 @@ import { FriendsComponent } from './friends/friends.component';
     FormsModule,
     HttpModule,
     NgbModule.forRoot(),
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
-
-      { path: 'friends', component: FriendsComponent, canActivate: [AuthGuard]},
-
-      { path: '**', redirectTo: '' }
-    ])
+    AppRoutingModule
   ],
   providers: [
     AuthGuard,
