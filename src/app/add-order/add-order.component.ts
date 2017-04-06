@@ -35,7 +35,7 @@ export class AddOrderComponent implements OnInit {
       .distinctUntilChanged()
       .do(() => this.searching = true)
       .switchMap(term =>
-        this._user.search(term)
+        this._user.search({field : "name",q : term})
           .do(() => this.searchFailed = false)
           .catch(() => {
             this.searchFailed = true;

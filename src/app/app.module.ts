@@ -40,8 +40,9 @@ import { AddOrderComponent } from './add-order/add-order.component';
     FriendSearchComponent,
     GroupsComponent,
 
-    GroupInfoComponent
+    GroupInfoComponent,
 
+    AddOrderComponent
 
   ],
   imports: [
