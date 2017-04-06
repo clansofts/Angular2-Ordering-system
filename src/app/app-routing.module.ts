@@ -16,9 +16,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
 
   { path: 'friends', component: FriendsComponent, canActivate: [AuthGuard]},
-
-  { path: 'orders/add', component: AddOrderComponent, canActivate: [AuthGuard]},
-
+  { path: 'add-order', component: AddOrderComponent, canActivate: [AuthGuard]},
   { path: 'groups', component: GroupsComponent, canActivate: [AuthGuard]},
 
   { path: '**', redirectTo: '' }

@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, JsonpModule } from '@angular/http';
+
 import { Routes, RouterModule } from '@angular/router';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -19,7 +20,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { FriendsComponent } from './friends/friends.component';
-import {AppRoutingModule} from "./app-routing.module";
+import { AppRoutingModule} from "./app-routing.module";
 import { FriendSearchComponent } from './friend-search/friend-search.component';
 
 import { GroupsComponent } from './groups/groups.component';
@@ -47,6 +48,7 @@ import { AddOrderComponent } from './add-order/add-order.component';
     BrowserModule,
     FormsModule,
     HttpModule,
+    JsonpModule,
     NgbModule.forRoot(),
     AppRoutingModule
   ],

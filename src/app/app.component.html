@@ -19,7 +19,7 @@
           <a class="nav-link" [routerLink]="['/register']"><i class="fa fa-unlock"></i> Register</a>
         </li>
         <li *ngIf="authenticationService.isLoggedIn()" class="nav-item">
-          <a class="nav-link" [routerLink]="['/orders/add']"><i class="fa fa-plus"></i> Add Order</a>
+          <a class="nav-link" [routerLink]="['/add-order']"><i class="fa fa-plus"></i> Add Order</a>
         </li>
          <li *ngIf="authenticationService.isLoggedIn()" class="nav-item">
           <a class="nav-link" [routerLink]="['/friends']"><i class="fa fa-users"></i> Friends</a>
