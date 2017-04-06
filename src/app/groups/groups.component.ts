@@ -1,35 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { GroupsService } from '../_services/groups.service';
 import { Group } from '../_models/Group';
+import { User } from '../_models/user';
+import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({
   selector: 'app-groups',
   templateUrl: './groups.component.html',
   styleUrls: ['./groups.component.css'],
-  providers:[GroupsService]
+  providers:[GroupsService,AuthenticationService]
 })
 export class GroupsComponent implements OnInit {
 
+  currentUser: User;
   groups: Group[];
   currentGroup;
 
-  constructor(private groupService: GroupsService) {
-
+  constructor(private groupService: GroupsService,private uerService: AuthenticationService) {
+      this.currentUser=uerService.getCurrentUser();
+      console.log("user",this.currentUser);
   }
 
   ngOnInit() {
-<<<<<<< HEAD
-    //console.log("list");
-    console.log("==",this.groupService.list());
-    //this.groupService.list();
-    //this.groupService.list().then((res)=>{ groups =>this.groups = groups });
 
-    //this.groupService.list().subscribe(data =>{  this.groups = data[0];  console.log(this.groups);}  );
-    //this.groupService.list().then((res)=>{ this.groups = res });;
-    console.log("--",this.groups);
-    //this.groups=this.groupService.list();
-
-=======
     this.groupService.list().subscribe(
       groups => {
         this.groups = groups;
@@ -39,7 +32,14 @@ export class GroupsComponent implements OnInit {
       err => {
         console.log(err);
       });
->>>>>>> a87811dba01af3372f9305c01b076dd1820fc2ef
+
+  }
+
+  addGroup(name:string){
+    console.log("add");
+    this.groupService.add({owner:this.currentUser.name,name:name}).subscribe(
+      data =>{},error => {}
+    );
   }
 
 }

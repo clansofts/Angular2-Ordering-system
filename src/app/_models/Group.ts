@@ -1,5 +1,5 @@
 export class Group {
-    id: number;
-    name: string;
+    owner:string;
+    name:string;
 
 }
