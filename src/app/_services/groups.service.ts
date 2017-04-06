@@ -10,10 +10,10 @@ export class GroupsService {
 
   constructor(private http: Http) { }
 
-  list():Promise<any> {
+  list() {
       //return this.http.get('http://localhost:8090/groups', this.jwt()).toPromise().then(response => response.json());
-      return this.http.get('http://localhost:8090/groups', this.jwt()).toPromise();
-      //return this.http.get('http://localhost:8090/groups', this.jwt()).map((response: Response) => response.json());
+      //return this.http.get('http://localhost:8090/groups', this.jwt()).toPromise();
+      return this.http.get('http://localhost:8090/groups', this.jwt()).map(response => response.json());
   }
 
   private jwt() {
