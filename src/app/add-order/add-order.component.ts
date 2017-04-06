@@ -21,12 +21,12 @@ export class AddOrderComponent implements OnInit {
   searching = false;
   searchFailed = false;
 
-  tmp: any = {invite : {}};
+  tmp: any = {invite: {}, invite_valid: true};
   invited_users = [];
 
   order_for_values = ["Lunch", "BreackFast"];
 
-  constructor(private _user : UserService) {
+  constructor(private _user: UserService) {
   }
 
   search = (text$: Observable<string>) =>
@@ -35,7 +35,7 @@ export class AddOrderComponent implements OnInit {
       .distinctUntilChanged()
       .do(() => this.searching = true)
       .switchMap(term =>
-        this._user.search(term)
+        this._user.search({field: "name", q: term})
           .do(() => this.searchFailed = false)
           .catch(() => {
             this.searchFailed = true;
@@ -45,12 +45,30 @@ export class AddOrderComponent implements OnInit {
 
   formatter = (x: {name: string}) => x.name;
 
-  inviteItemTmp(event){
+  inviteItemTmp(event) {
     this.tmp.invite = event.item;
   }
 
-  inviteItemHandle(){
-    this.invited_users.push(this.tmp.invite);
+  inviteItemHandle() {
+    var exists = false;
+    for (var i = 0; i < this.invited_users.length; i++) {
+      if (this.invited_users[i]._id == this.tmp.invite._id) {
+        exists = true;
+      }
+    }
+    if (exists) {
+      this.tmp.invite_valid = false;
+    } else {
+      this.invited_users.push(this.tmp.invite);
+    }
+  }
+
+  removeUser(user){
+    for (var i = 0; i < this.invited_users.length; i++) {
+      if (this.invited_users[i]._id == user._id) {
+        this.invited_users.splice(i, 1);
+      }
+    }
   }
 
   ngOnInit() {

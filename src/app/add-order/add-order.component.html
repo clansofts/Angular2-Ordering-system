@@ -23,7 +23,7 @@
           </div>
         </div>
 
-        <div class="form-group" [ngClass]="{ 'has-danger': f.submitted && !restaurant_name.valid }">
+        <div class="form-group" [ngClass]="{ 'has-danger': !tmp.invite_valid }">
           <label>Participants</label>
 
           <div class="input-group">
@@ -38,16 +38,21 @@
             </div>
 
             <template #inviteTemplate let-r="result" let-t="term">
-              <img [src]="'https://upload.wikimedia.org/wikipedia/commons/thumb/' + r.flag" width="16">
-              {{ r.name}}
+              <img [src]="r.avatar ? r.avatar : '/src/assets/images/default-avatar.jpg'" width="16">
+              {{ r.name }}
             </template>
 
-            <input type="text" class="form-control" name="invite" [ngbTypeahead]="search" [resultTemplate]="inviteTemplate"
+            <input type="text" class="form-control" name="invite" [ngbTypeahead]="search"
+                   [resultTemplate]="inviteTemplate"
                    [inputFormatter]="formatter" (selectItem)="inviteItemTmp($event)"/>
             <span class="input-group-btn">
               <button class="btn btn-secondary" type="button" (click)="inviteItemHandle()">Invite</button>
             </span>
+
           </div>
+
+          <div *ngIf="!tmp.invite_valid" class="form-control-feedback">User Already Exists.</div>
+
         </div>
 
         <div class="form-group">
@@ -62,12 +67,7 @@
 
       <div class="row">
         <div class="col-sm-4" *ngFor="let user of invited_users">
-          <div class="card">
-            <img class="card-img-top img-fluid" src="..." alt="Card image cap">
-            <div class="card-block">
-              <h4 class="card-title">{{user.name}}</h4>
-            </div>
-          </div>
+          <user-card [user]="user" [button]="{text:'Remove',class:'btn-danger'}" (buttonClicked)="removeUser($event)"></user-card>
         </div>
       </div>
 

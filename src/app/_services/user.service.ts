@@ -32,16 +32,16 @@ export class UserService {
     return this.http.delete('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
   }
 
-  search(term: string) {
-    if (term === '') {
+  search(data) {
+    if (data === '') {
       return Observable.of([]);
     }
 
     let searchUrl = 'http://localhost:8090/users/search';
 
     let params = new URLSearchParams();
-    params.set('field', 'name');
-    params.set('q', term);
+    params.set('field', data.field);
+    params.set('q', data.q);
 
     let options = this.jwt();
     options.search = params;
