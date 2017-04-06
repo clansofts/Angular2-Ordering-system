@@ -17,15 +17,15 @@ export class GroupsComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("list");
-    //console.log(this.groupService.list().subscribe(data => this.groups=data ));
-    //this.groupService.list().then((res)=>{ this.groups = res });
-
-    this.groupService.list().subscribe(data => this.groups );
-    //this.groups=this.groupService.list();
-    console.log("--",this.groups);
-    //this.groups=this.groupService.list();
-
+    this.groupService.list().subscribe(
+      groups => {
+        this.groups = groups;
+        //all code must be here not out
+        console.log(this.groups);
+      },
+      err => {
+        console.log(err);
+      });
   }
 
 }
