@@ -21,6 +21,10 @@ import { HomeComponent } from './home/home.component';
 import { FriendsComponent } from './friends/friends.component';
 import {AppRoutingModule} from "./app-routing.module";
 import { FriendSearchComponent } from './friend-search/friend-search.component';
+import { GroupsComponent } from './groups/groups.component';
+import { GroupInfoComponent } from './group-info/group-info.component';
+import { AddGroupComponent } from './add-group/add-group.component';
+import { ListGroupsComponent } from './list-groups/list-groups.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,11 @@ import { FriendSearchComponent } from './friend-search/friend-search.component';
     HomeComponent,
     AlertComponent,
     FriendsComponent,
-    FriendSearchComponent
+    FriendSearchComponent,
+    GroupsComponent,
+    GroupInfoComponent,
+    AddGroupComponent,
+    ListGroupsComponent
   ],
   imports: [
     BrowserModule,
