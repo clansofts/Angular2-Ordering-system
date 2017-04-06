@@ -2,7 +2,6 @@
 
 <div class="jumbotron">
 
-
   <div class="row">
 
     <div class="col-md-6">
@@ -18,8 +17,37 @@
 
         <div class="form-group" [ngClass]="{ 'has-danger': f.submitted && !restaurant_name.valid }">
           <label>Restaurant Name</label>
-          <input type="text" class="form-control" name="restaurant_name" [(ngModel)]="model.restaurant_name" #restaurant_name="ngModel" required/>
-          <div *ngIf="f.submitted && !restaurant_name.valid" class="form-control-feedback">Restaurant Name is required</div>
+          <input type="text" class="form-control" name="restaurant_name" [(ngModel)]="model.restaurant_name"
+                 #restaurant_name="ngModel" required/>
+          <div *ngIf="f.submitted && !restaurant_name.valid" class="form-control-feedback">Restaurant Name is required
+          </div>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-danger': f.submitted && !restaurant_name.valid }">
+          <label>Participants</label>
+
+          <div class="input-group">
+            <div class="input-group-btn" ngbDropdown>
+              <button type="button" class="btn btn-secondary dropdown-toggle" ngbDropdownToggle>
+                Friends
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item">Friends</a>
+                <a class="dropdown-item">Groups</a>
+              </div>
+            </div>
+
+            <template #inviteTemplate let-r="result" let-t="term">
+              <img [src]="'https://upload.wikimedia.org/wikipedia/commons/thumb/' + r.flag" width="16">
+              {{ r.name}}
+            </template>
+
+            <input type="text" class="form-control" name="invite" [ngbTypeahead]="search" [resultTemplate]="inviteTemplate"
+                   [inputFormatter]="formatter" (selectItem)="inviteItemTmp($event)"/>
+            <span class="input-group-btn">
+              <button class="btn btn-secondary" type="button" (click)="inviteItemHandle()">Invite</button>
+            </span>
+          </div>
         </div>
 
         <div class="form-group">
@@ -32,17 +60,16 @@
     <div class="col-md-6">
       <h2>Friends Invited</h2>
 
-      <div class="card-columns">
-        <div class="card">
-          <img class="card-img-top img-fluid" src="..." alt="Card image cap">
-          <div class="card-block">
-            <h4 class="card-title">Me</h4>
+      <div class="row">
+        <div class="col-sm-4" *ngFor="let user of invited_users">
+          <div class="card">
+            <img class="card-img-top img-fluid" src="..." alt="Card image cap">
+            <div class="card-block">
+              <h4 class="card-title">{{user.name}}</h4>
+            </div>
           </div>
         </div>
-
       </div>
-
-
 
     </div>
 
