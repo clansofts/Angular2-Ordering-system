@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GroupsService } from '../_services/groups.service';
+import { Group } from '../_models/Group';
 
 @Component({
   selector: 'app-groups',
@@ -9,7 +10,7 @@ import { GroupsService } from '../_services/groups.service';
 })
 export class GroupsComponent implements OnInit {
 
-  groups={};
+  groups: Group[];
   currentGroup;
 
   constructor(private groupService: GroupsService) {
@@ -17,12 +18,13 @@ export class GroupsComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("list");
-    //console.log(this.groupService.list().subscribe(data => this.groups=data ));
+    //console.log("list");
+    console.log("==",this.groupService.list());
+    this.groupService.list().then((res)=>this.groups = res.json());
     //this.groupService.list().then((res)=>{ this.groups = res });
 
-    this.groupService.list().subscribe(data => this.groups );
-    //this.groups=this.groupService.list();
+    //this.groupService.list().subscribe(data => this.groups  );
+    //this.groupService.list().then((res)=>{ this.groups = res });;
     console.log("--",this.groups);
     //this.groups=this.groupService.list();
 
