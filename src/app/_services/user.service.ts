@@ -49,9 +49,7 @@ export class UserService {
     return this.http
       .get(searchUrl, options)
       .map(response => <string[]> response.json());
-
   }
-
 
   getByEmail(term: string) {
     return this.http

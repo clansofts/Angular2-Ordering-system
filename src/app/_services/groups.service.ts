@@ -11,9 +11,13 @@ export class GroupsService {
   constructor(private http: Http) { }
 
   list() {
+<<<<<<< HEAD
       //return this.http.get('http://localhost:8090/groups', this.jwt()).toPromise().then(response => response.json() as Group[]);
       //return this.http.get('http://localhost:8090/groups', this.jwt()).toPromise();
       return this.http.get('http://localhost:8090/groups', this.jwt()).map((response: Response)=>{response.json()});
+=======
+      return this.http.get('http://localhost:8090/groups/list', this.jwt()).map(response => <string[]> response.json());;
+>>>>>>> a87811dba01af3372f9305c01b076dd1820fc2ef
   }
 
   private jwt() {

@@ -18,6 +18,7 @@ export class GroupsComponent implements OnInit {
   }
 
   ngOnInit() {
+<<<<<<< HEAD
     //console.log("list");
     console.log("==",this.groupService.list());
     //this.groupService.list();
@@ -28,6 +29,17 @@ export class GroupsComponent implements OnInit {
     console.log("--",this.groups);
     //this.groups=this.groupService.list();
 
+=======
+    this.groupService.list().subscribe(
+      groups => {
+        this.groups = groups;
+        //all code must be here not out
+        console.log(this.groups);
+      },
+      err => {
+        console.log(err);
+      });
+>>>>>>> a87811dba01af3372f9305c01b076dd1820fc2ef
   }
 
 }
