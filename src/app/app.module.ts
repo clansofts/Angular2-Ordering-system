@@ -12,10 +12,15 @@ import { UserService } from './_services/user.service';
 
 import { AlertComponent } from './_helpers/alert.component';
 
+import { AuthGuard } from './_guards/auth.guard';
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
+import { FriendsComponent } from './friends/friends.component';
+import {AppRoutingModule} from "./app-routing.module";
+import { FriendSearchComponent } from './friend-search/friend-search.component';
 
 @NgModule({
   declarations: [
@@ -23,23 +28,23 @@ import { HomeComponent } from './home/home.component';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    AlertComponent
+    AlertComponent,
+    FriendsComponent,
+    FriendSearchComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     NgbModule.forRoot(),
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
-      { path: '**', redirectTo: '' }
-    ])
+    AppRoutingModule
   ],
   providers: [
+    AuthGuard,
+
     AlertService,
     AuthenticationService,
+
     UserService,
   ],
   bootstrap: [AppComponent]

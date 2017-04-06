@@ -1,0 +1,28 @@
+<div id="search-component">
+  <h4>Friend Search</h4>
+  <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+  <div *ngIf="user">
+    <br><br><br>
+  </div>
+  <div id="products" class="card-deck row grid-group" *ngIf="user">
+      <br><br><br>
+      <br><br><br>
+      <br><br><br>
+        <div class="item  col-sm-4  grid-group-item" >
+          <div class="thumbnail">
+            <img class="group card-img-top list-group-image" width="200" height="200" src="http://placehold.it/400x250/000/fff" alt="" />
+            <div class="card-block">
+              <div class="col-md-12 text-center">
+                <h6 class="group card-title">  {{user.name}} </h6>
+              </div>
+              <div class="row">
+                <div class="col-md-12 text-center">
+                  <button class="btn btn-sm btn-success" (click)="makeFreind()">Follow</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <br><br><br>
+    </div>
+  </div>
