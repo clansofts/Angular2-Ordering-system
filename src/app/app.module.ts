@@ -10,7 +10,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AlertService } from './_services/alert.service';
 import { AuthenticationService } from './_services/authentication.service';
 import { UserService } from './_services/user.service';
-
+import { GroupsService } from './_services/groups.service';
 import { AlertComponent } from './_helpers/alert.component';
 
 import { AuthGuard } from './_guards/auth.guard';
@@ -25,8 +25,7 @@ import { FriendSearchComponent } from './friend-search/friend-search.component';
 
 import { GroupsComponent } from './groups/groups.component';
 import { GroupInfoComponent } from './group-info/group-info.component';
-import { AddGroupComponent } from './add-group/add-group.component';
-import { ListGroupsComponent } from './list-groups/list-groups.component';
+
 
 import { AddOrderComponent } from './add-order/add-order.component';
 
@@ -40,10 +39,10 @@ import { AddOrderComponent } from './add-order/add-order.component';
     FriendsComponent,
     FriendSearchComponent,
     GroupsComponent,
-    GroupInfoComponent,
-    AddGroupComponent,
-    ListGroupsComponent,
-    AddOrderComponent
+
+    GroupInfoComponent
+
+
   ],
   imports: [
     BrowserModule,
@@ -55,7 +54,7 @@ import { AddOrderComponent } from './add-order/add-order.component';
   ],
   providers: [
     AuthGuard,
-
+    GroupsService,
     AlertService,
     AuthenticationService,
 
