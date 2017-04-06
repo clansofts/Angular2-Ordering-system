@@ -10,7 +10,7 @@ import { Group } from '../_models/Group';
 })
 export class GroupsComponent implements OnInit {
 
-  groups: Group;
+  groups: Group[];
   currentGroup;
 
   constructor(private groupService: GroupsService) {
@@ -19,11 +19,11 @@ export class GroupsComponent implements OnInit {
 
   ngOnInit() {
     //console.log("list");
-    //console.log("==",this.groupService.list());
+    console.log("==",this.groupService.list().then((res));
     //this.groupService.list().then((res)=>this.groups = res.json());
-    //this.groupService.list().then((res)=>{ this.groups = res });
+    this.groupService.list().then((res)=>{ groups =>this.groups = groups });
 
-    this.groupService.list().subscribe(data =>{  this.groups = data[0];  console.log(this.groups);}  );
+    //this.groupService.list().subscribe(data =>{  this.groups = data[0];  console.log(this.groups);}  );
     //this.groupService.list().then((res)=>{ this.groups = res });;
     console.log("--",this.groups);
     //this.groups=this.groupService.list();
