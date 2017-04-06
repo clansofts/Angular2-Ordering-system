@@ -28,6 +28,7 @@ import { GroupInfoComponent } from './group-info/group-info.component';
 
 
 import { AddOrderComponent } from './add-order/add-order.component';
+import { UserCardComponent } from './user-card/user-card.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,9 @@ import { AddOrderComponent } from './add-order/add-order.component';
 
     GroupInfoComponent,
 
-    AddOrderComponent
+    AddOrderComponent,
+
+    UserCardComponent
 
   ],
   imports: [
