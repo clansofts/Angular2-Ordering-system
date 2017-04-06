@@ -25,6 +25,9 @@
           <a class="nav-link" [routerLink]="['/friends']"><i class="fa fa-users"></i> Friends</a>
         </li>
         <li *ngIf="authenticationService.isLoggedIn()" class="nav-item">
+          <a class="nav-link" [routerLink]="['/groups']">Groups</a>
+        </li>
+        <li *ngIf="authenticationService.isLoggedIn()" class="nav-item">
           <a (click)="authenticationService.logout()" href="#" class="nav-link">Logout</a>
         </li>
       </ul>
@@ -37,5 +40,3 @@
   </div>
 
 </div>
-
-
