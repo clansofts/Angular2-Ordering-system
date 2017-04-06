@@ -21,9 +21,12 @@ import { HomeComponent } from './home/home.component';
 import { FriendsComponent } from './friends/friends.component';
 import {AppRoutingModule} from "./app-routing.module";
 import { FriendSearchComponent } from './friend-search/friend-search.component';
+
 import { GroupsComponent } from './groups/groups.component';
 import { GroupInfoComponent } from './group-info/group-info.component';
 
+
+import { AddOrderComponent } from './add-order/add-order.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,9 @@ import { GroupInfoComponent } from './group-info/group-info.component';
     FriendsComponent,
     FriendSearchComponent,
     GroupsComponent,
+
     GroupInfoComponent
+
 
   ],
   imports: [
