@@ -10,16 +10,19 @@
     <div class="collapse navbar-collapse" id="containerNavbar">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#"><i class="fa fa-home"></i> Home <span class="sr-only">(current)</span></a>
         </li>
         <li *ngIf="!authenticationService.isLoggedIn()" class="nav-item">
           <a class="nav-link" [routerLink]="['/login']"><i class="fa fa-user"></i> Login</a>
         </li>
         <li *ngIf="!authenticationService.isLoggedIn()" class="nav-item">
-          <a class="nav-link" [routerLink]="['/register']">Register</a>
+          <a class="nav-link" [routerLink]="['/register']"><i class="fa fa-unlock"></i> Register</a>
         </li>
         <li *ngIf="authenticationService.isLoggedIn()" class="nav-item">
-          <a class="nav-link" [routerLink]="['/friends']">Friends</a>
+          <a class="nav-link" [routerLink]="['/orders/add']"><i class="fa fa-plus"></i> Add Order</a>
+        </li>
+         <li *ngIf="authenticationService.isLoggedIn()" class="nav-item">
+          <a class="nav-link" [routerLink]="['/friends']"><i class="fa fa-users"></i> Friends</a>
         </li>
         <li *ngIf="authenticationService.isLoggedIn()" class="nav-item">
           <a (click)="authenticationService.logout()" href="#" class="nav-link">Logout</a>
@@ -28,13 +31,9 @@
     </div>
   </nav>
 
-  <div class="jumbotron">
-    <div class="container">
-      <div class="col-sm-8 col-sm-offset-2">
-        <alert></alert>
-        <router-outlet></router-outlet>
-      </div>
-    </div>
+  <div class="container">
+    <alert></alert>
+    <router-outlet></router-outlet>
   </div>
 
 </div>

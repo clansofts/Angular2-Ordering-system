@@ -21,6 +21,7 @@ import { HomeComponent } from './home/home.component';
 import { FriendsComponent } from './friends/friends.component';
 import {AppRoutingModule} from "./app-routing.module";
 import { FriendSearchComponent } from './friend-search/friend-search.component';
+import { AddOrderComponent } from './add-order/add-order.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { FriendSearchComponent } from './friend-search/friend-search.component';
     HomeComponent,
     AlertComponent,
     FriendsComponent,
-    FriendSearchComponent
+    FriendSearchComponent,
+    AddOrderComponent
   ],
   imports: [
     BrowserModule,
