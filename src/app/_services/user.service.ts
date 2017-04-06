@@ -2,6 +2,7 @@
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
 import { User } from '../_models/user';
+import {Observable} from "rxjs";
 
 @Injectable()
 export class UserService {
@@ -25,6 +26,18 @@ export class UserService {
 
     delete(id: number) {
         return this.http.delete('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
+    }
+
+    getByEmail(term: string){
+    return this.http
+      .get('http://localhost:8090/users/'+term,this.jwt())
+      .map(response => response.json());
+    }
+
+    makeFriendShip(id: string){
+      return this.http
+        .get('http://localhost:8090/follow/'+id,this.jwt())
+        .map(response => response.json());
     }
 
     private jwt() {

@@ -20,6 +20,7 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { FriendsComponent } from './friends/friends.component';
 import {AppRoutingModule} from "./app-routing.module";
+import { FriendSearchComponent } from './friend-search/friend-search.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {AppRoutingModule} from "./app-routing.module";
     RegisterComponent,
     HomeComponent,
     AlertComponent,
-    FriendsComponent
+    FriendsComponent,
+    FriendSearchComponent
   ],
   imports: [
     BrowserModule,
