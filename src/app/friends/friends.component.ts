@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {User} from "../_models/user";
+import {FriendsService} from "../_services/friends.service";
+import {AuthenticationService} from "../_services/authentication.service";
+import {UtilService} from "../_services/util.service";
 
 @Component({
   selector: 'app-friends',
@@ -7,9 +11,41 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FriendsComponent implements OnInit {
 
-  constructor() { }
+  friends: User[];
+  user: User;
+  deleteFriend: User;
+  constructor(
+    private friendService: FriendsService,
+    private  authService: AuthenticationService,
+    private UtilService: UtilService
+  ) { }
+
+
+  getFriends(): void {
+    this.friendService.getFriends(this.authService.getCurrentUser().id).then(friends => this.friends = friends);
+  }
+
+  onAddNotify(user: User): void
+  {
+    this.friends.push(user);
+  }
+
+  onDeleteNotify(user: User): void
+  {
+    this.friends  = this.UtilService.removeItem(this.friends,user);
+  }
+
+  deleteFollower(user: User): void{
+    this.friends = this.friends.filter(h => h !== user);
+    let query = {reqFrom :this.authService.getCurrentUser().id,reqTo:user._id};
+    this.friendService.deleteFriend(query).then(deleteFriend => this.deleteFriend = deleteFriend);
+  }
+
 
   ngOnInit() {
+    this.getFriends();
   }
+
+
 
 }

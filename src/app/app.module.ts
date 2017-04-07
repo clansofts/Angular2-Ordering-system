@@ -29,6 +29,8 @@ import { GroupInfoComponent } from './group-info/group-info.component';
 
 import { AddOrderComponent } from './add-order/add-order.component';
 import { UserCardComponent } from './user-card/user-card.component';
+import {FriendsService} from "./_services/friends.service";
+import {UtilService} from "./_services/util.service";
 
 @NgModule({
   declarations: [
@@ -40,15 +42,9 @@ import { UserCardComponent } from './user-card/user-card.component';
     FriendsComponent,
     FriendSearchComponent,
     GroupsComponent,
-
     GroupInfoComponent,
-
-
     AddOrderComponent,
-
     UserCardComponent
-
-
   ],
   imports: [
     BrowserModule,
@@ -63,8 +59,9 @@ import { UserCardComponent } from './user-card/user-card.component';
     GroupsService,
     AlertService,
     AuthenticationService,
-
+    FriendsService,
     UserService,
+    UtilService
   ],
   bootstrap: [AppComponent]
 })

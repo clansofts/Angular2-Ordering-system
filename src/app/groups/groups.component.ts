@@ -7,6 +7,7 @@ import {UserService} from '../_services/user.service';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/map';
+import {FriendsService} from "../_services/friends.service";
 
 @Component({
   selector: 'app-groups',
@@ -25,7 +26,7 @@ export class GroupsComponent implements OnInit {
   searching = false;
   searchFailed = false;
 
-  constructor(private groupService: GroupsService,private uerService: AuthenticationService,private _user: UserService) {
+  constructor(private groupService: GroupsService,private friendService: FriendsService,  private uerService: AuthenticationService,private _user: UserService) {
       this.currentUser=uerService.getCurrentUser();
       console.log("user",this.currentUser);
   }
@@ -36,7 +37,7 @@ export class GroupsComponent implements OnInit {
       .distinctUntilChanged()
       .do(() => this.searching = true)
       .switchMap(term =>
-        this._user.search({field: "name", q: term})
+        this.friendService.search({field: "name", q: term})
           .do(() => this.searchFailed = false)
           .catch(() => {
             this.searchFailed = true;
