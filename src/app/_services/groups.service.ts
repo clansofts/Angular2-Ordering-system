@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
-//import { group } from '../_models/group';
+import { Group } from '../_models/Group';
 import {Observable} from "rxjs";
 import 'rxjs/add/operator/toPromise';
 
@@ -11,7 +11,14 @@ export class GroupsService {
   constructor(private http: Http) { }
 
   list() {
-      return this.http.get('http://localhost:8090/groups/list', this.jwt()).map(response => <string[]> response.json());;
+
+      return this.http.get('http://localhost:8090/groups/list', this.jwt()).map(response => <Group[]> response.json());;
+
+  }
+
+  add(group: Group) {
+    console.log("service");
+    return this.http.post('http://localhost:8090/groups/add', group, this.jwt()).map((response: Response) => response.json());
   }
 
   private jwt() {
