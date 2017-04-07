@@ -9,7 +9,7 @@
   </div>
 </div>
 <div class="row jumbotron">
-  <div class="col-md-6">
+  <div class="col-md-3">
     <h3>my groups</h3>
     <ul class="heroes">
       <li *ngFor="let group of groups"
@@ -19,26 +19,33 @@
     </li>
     </ul>
   </div>
-  <div class="col-md-6">
-  <h3>group members</h3>
-  <div class="row">
-  <div>
+  <div class="col-md-9">
+  
+  <h4>{{currentGroup?.name}} members</h4>
+  <div class="row ">
     <template #inviteTemplate let-r="result" let-t="term">
       <img [src]="r.avatar ? r.avatar : '/src/assets/images/default-avatar.jpg'" width="16">
       {{ r.name }}
     </template>
-    <input type="text" class="form-control" name="invite" [ngbTypeahead]="search"
-           [resultTemplate]="inviteTemplate"
-           [inputFormatter]="formatter" (selectItem)="inviteItemTmp($event)"/>
-    <span class="input-group-btn">
-      <button class="btn btn-secondary" type="button" (click)="inviteItemHandle()">Invite</button>
-    </span>
-  </div>
+    <div class="col-md-4  input-group">
+      <input type="text" class="form-control" name="invite" [ngbTypeahead]="search"
+             [resultTemplate]="inviteTemplate"
+             [inputFormatter]="formatter" (selectItem)="inviteItemTmp($event)"/>
+      <span class="input-group-btn">
+        <button class="btn btn-secondary" type="button" (click)="inviteItemHandle()">add</button>
+      </span>
+    </div>
 
-    <div class="col-sm-4" *ngFor="let user of invited_users">
-      <user-card [user]="user" [button]="{text:'Remove',class:'btn-danger'}" (buttonClicked)="removeUser($event)"></user-card>
+  </div>
+  <div class="row">
+    <div class="col-sm-2" *ngFor="let user of invited_users">
+
+        <user-card [user]="user" [button]="{text:'Remove',class:'btn-danger'}" (buttonClicked)="removeUser($event)"></user-card>
+
     </div>
   </div>
+
+
 
   </div>
 </div>

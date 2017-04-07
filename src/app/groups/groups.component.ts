@@ -8,6 +8,7 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/map';
 import {FriendsService} from "../_services/friends.service";
+import {UtilService} from "../_services/util.service";
 
 @Component({
   selector: 'app-groups',
@@ -18,13 +19,18 @@ import {FriendsService} from "../_services/friends.service";
 export class GroupsComponent implements OnInit {
 
   currentUser: User;
+  member:User;
   groups: Group[];
   currentGroup:Group;
   invited_users = [];
+  members:any;
+  invited_id:any;
+  private query;
   tmp: any = {invite: {}, invite_valid: true};
   loading = false;
   searching = false;
   searchFailed = false;
+
 
   constructor(private groupService: GroupsService,private friendService: FriendsService,  private uerService: AuthenticationService,private _user: UserService) {
       this.currentUser=uerService.getCurrentUser();
@@ -53,20 +59,43 @@ export class GroupsComponent implements OnInit {
     this.groupService.list().subscribe(
       groups => {
         this.groups = groups;
+        this.currentGroup=groups[0];
         //all code must be here not out
         console.log(this.groups);
+        console.log("selected group",this.currentGroup);
       },
       err => {
         console.log(err);
       });
 
+
+      this.groupService.listMembers().then(members => this.members = members);
+      console.log("members:",this.members);
+
+
   }
 
   addGroup(name:string){
     console.log("add");
-    this.groupService.add({owner:this.currentUser.name,name:name}).subscribe(
+    this.groupService.add({owner:this.currentUser.name,name:name,members:[]}).subscribe(
       data =>{},error => {}
     );
+  }
+
+  addMember(name,id): void {
+      this.query = {name:name,uid:id};
+      this.groupService.addMember(this.query)
+       .subscribe(
+        data => {
+          if (!data.error)
+          {
+            // this.notifyAdd.emit(this.user);
+            // this.user = null;
+          }
+        },
+        error => {
+          console.log("erro in adding",error);
+        });
   }
 
   onSelect(group: Group): void {
@@ -81,12 +110,15 @@ inviteItemHandle() {
   var exists = false;
   for (var i = 0; i < this.invited_users.length; i++) {
     if (this.invited_users[i]._id == this.tmp.invite._id) {
+
       exists = true;
     }
   }
   if (exists) {
     this.tmp.invite_valid = false;
   } else {
+      console.log(this.tmp.invite._id);
+      this.addMember(this.currentGroup.name,this.tmp.invite._id);
     this.invited_users.push(this.tmp.invite);
   }
 }

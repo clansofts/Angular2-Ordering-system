@@ -2,6 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 
 import { AuthenticationService } from './_services/authentication.service';
 import {NotificationService} from "./_services/notification.service";
+import { UtilService } from './_services/util.service';
 
 @Component({
   selector: 'app-root',
@@ -16,8 +17,11 @@ export class AppComponent implements OnInit, OnDestroy{
 
   constructor(
       private authenticationService: AuthenticationService,
-      private notifyService: NotificationService
+      private notifyService: NotificationService,
+      private authenticationService: AuthenticationService,
+      private _util: UtilService,
     ) {}
+
 
   ngOnInit() {
     this.connection = this.notifyService.getMessages().subscribe(message => {
