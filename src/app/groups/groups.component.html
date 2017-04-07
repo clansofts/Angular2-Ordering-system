@@ -23,6 +23,10 @@
   <h3>group members</h3>
   <div class="row">
   <div>
+    <template #inviteTemplate let-r="result" let-t="term">
+      <img [src]="r.avatar ? r.avatar : '/src/assets/images/default-avatar.jpg'" width="16">
+      {{ r.name }}
+    </template>
     <input type="text" class="form-control" name="invite" [ngbTypeahead]="search"
            [resultTemplate]="inviteTemplate"
            [inputFormatter]="formatter" (selectItem)="inviteItemTmp($event)"/>
