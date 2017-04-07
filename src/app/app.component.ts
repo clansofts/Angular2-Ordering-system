@@ -18,7 +18,6 @@ export class AppComponent implements OnInit, OnDestroy{
   constructor(
       private authenticationService: AuthenticationService,
       private notifyService: NotificationService,
-      private authenticationService: AuthenticationService,
       private _util: UtilService,
     ) {}
 
