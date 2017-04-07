@@ -32,6 +32,8 @@ import { UserCardComponent } from './user-card/user-card.component';
 import {FriendsService} from "./_services/friends.service";
 import {UtilService} from "./_services/util.service";
 
+import { FileSelectDirective } from 'ng2-file-upload';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +46,8 @@ import {UtilService} from "./_services/util.service";
     GroupsComponent,
     GroupInfoComponent,
     AddOrderComponent,
-    UserCardComponent
+    UserCardComponent,
+    FileSelectDirective
   ],
   imports: [
     BrowserModule,

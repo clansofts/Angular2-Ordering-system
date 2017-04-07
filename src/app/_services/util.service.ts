@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
+import {Http, Headers, RequestOptions, Response} from '@angular/http';
+
+import {Observable} from "rxjs";
 
 @Injectable()
 export class UtilService {
 
-  constructor() { }
+  constructor(private http: Http,) { }
 
   objectPropInArray(list, prop, val): boolean  {
   if (list.length > 0 ) {
