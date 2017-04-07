@@ -1,6 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 
 import { AuthenticationService } from './_services/authentication.service';
+import { UtilService } from './_services/util.service';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ export class AppComponent implements OnInit{
 
   constructor(
     private authenticationService: AuthenticationService,
+    private _util: UtilService,
   ) {
 
   }
