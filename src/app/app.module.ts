@@ -31,6 +31,7 @@ import { AddOrderComponent } from './add-order/add-order.component';
 import { UserCardComponent } from './user-card/user-card.component';
 import {FriendsService} from "./_services/friends.service";
 import {UtilService} from "./_services/util.service";
+import {NotificationService} from "./_services/notification.service";
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import {UtilService} from "./_services/util.service";
     AuthenticationService,
     FriendsService,
     UserService,
-    UtilService
+    UtilService,
+    NotificationService
   ],
   bootstrap: [AppComponent]
 })

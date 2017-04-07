@@ -1,24 +1,40 @@
-import { Component,OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 
 import { AuthenticationService } from './_services/authentication.service';
+import {NotificationService} from "./_services/notification.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit, OnDestroy{
   title = 'app works!';
-
+  messages;
+  connection;
+  message;
 
   constructor(
-    private authenticationService: AuthenticationService,
-  ) {
-
-  }
+      private authenticationService: AuthenticationService,
+      private notifyService: NotificationService
+    ) {}
 
   ngOnInit() {
+    this.connection = this.notifyService.getMessages().subscribe(message => {
+      console.log(typeof message);
+      this.message=message;
+    });
+    this.notifyService.sendMessage("app say hi");
+  }
 
+  ngOnDestroy() {
+    this.connection.unsubscribe();
+  }
+
+
+  sendMessage(){
+    this.notifyService.sendMessage(this.message);
+    this.message = '';
   }
 
 }
