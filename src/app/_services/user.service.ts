@@ -9,6 +9,8 @@ import {Observable} from "rxjs";
 
 @Injectable()
 export class UserService {
+
+
   constructor(private http: Http, private _jsonp: Jsonp) {
   }
 
@@ -32,36 +34,6 @@ export class UserService {
     return this.http.delete('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
   }
 
-  search(data) {
-    if (data === '') {
-      return Observable.of([]);
-    }
-
-    let searchUrl = 'http://localhost:8090/users/search';
-
-    let params = new URLSearchParams();
-    params.set('field', data.field);
-    params.set('q', data.q);
-
-    let options = this.jwt();
-    options.search = params;
-
-    return this.http
-      .get(searchUrl, options)
-      .map(response => <string[]> response.json());
-  }
-
-  getByEmail(term: string) {
-    return this.http
-      .get('http://localhost:8090/users/' + term, this.jwt())
-      .map(response => response.json());
-  }
-
-  makeFriendShip(id: string) {
-    return this.http
-      .get('http://localhost:8090/follow/' + id, this.jwt())
-      .map(response => response.json());
-  }
 
   private jwt() {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));

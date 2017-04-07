@@ -8,6 +8,7 @@ import {UserService} from '../_services/user.service';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/map';
+import {FriendsService} from "../_services/friends.service";
 
 @Component({
   templateUrl: './add-order.component.html',
@@ -16,19 +17,14 @@ import 'rxjs/add/operator/map';
 
 export class AddOrderComponent implements OnInit {
   model: any = {};
-
   loading = false;
   searching = false;
   searchFailed = false;
-
   tmp: any = {invite: {}, invite_valid: true};
   invited_users = [];
-
   order_for_values = ["Lunch", "BreackFast"];
-
-  constructor(private _user: UserService) {
+  constructor(private _user: FriendsService) {
   }
-
   search = (text$: Observable<string>) =>
     text$
       .debounceTime(300)
