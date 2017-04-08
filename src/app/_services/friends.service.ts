@@ -25,7 +25,7 @@ export class FriendsService {
   }
 
 
-  deleteFriend(query): Promise<User>{
+  deleteFriend(query): Promise<any>{
     let Url = 'http://localhost:8090/follow/delete';
     let params = new URLSearchParams();
     params.set('from', query.reqFrom);

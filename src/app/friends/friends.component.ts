@@ -35,7 +35,7 @@ export class FriendsComponent implements OnInit {
     this.friends  = this.UtilService.removeItem(this.friends,user);
   }
 
-  deleteFollower(user: User): void{
+  deleteFollower(user: User): any{
     this.friends = this.friends.filter(h => h !== user);
     let query = {reqFrom :this.authService.getCurrentUser().id,reqTo:user._id};
     this.friendService.deleteFriend(query).then(deleteFriend => this.deleteFriend = deleteFriend);
