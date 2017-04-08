@@ -12,6 +12,7 @@ import { AuthenticationService } from './_services/authentication.service';
 import { UserService } from './_services/user.service';
 import { GroupsService } from './_services/groups.service';
 import { AlertComponent } from './_helpers/alert.component';
+import { OrderService } from './_services/orders.service';
 
 import { AuthGuard } from './_guards/auth.guard';
 
@@ -65,6 +66,7 @@ import { FileSelectDirective } from 'ng2-file-upload';
     AuthenticationService,
     FriendsService,
     UserService,
+    OrderService,
     UtilService,
     NotificationService
   ],
