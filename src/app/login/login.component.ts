@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AlertService } from '../_services/alert.service';
 import { AuthenticationService } from '../_services/authentication.service';
+import {NotificationService} from "../_services/notification.service";
 
 @Component({
   templateUrl: './login.component.html',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private notifyService: NotificationService
   ) { }
 
   ngOnInit() {
@@ -30,6 +32,8 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(this.model.email, this.model.password)
       .subscribe(
         data => {
+          var obj = {user_id : this.authenticationService.getCurrentUser().id};
+          this.notifyService.sendLoginMessage(obj);
           this.router.navigate([this.returnUrl]);
         },
         error => {
