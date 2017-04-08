@@ -34,6 +34,7 @@ import {UtilService} from "./_services/util.service";
 import {NotificationService} from "./_services/notification.service";
 
 import { FileSelectDirective } from 'ng2-file-upload';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { FileSelectDirective } from 'ng2-file-upload';
     GroupInfoComponent,
     AddOrderComponent,
     UserCardComponent,
-    FileSelectDirective
+    FileSelectDirective,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,
