@@ -23,7 +23,7 @@ export class GroupsComponent implements OnInit {
   groups: Group[];
   currentGroup:Group;
   invited_users = [];
-  members:any;
+  members:any[];
   invited_id:any;
   private query;
   tmp: any = {invite: {}, invite_valid: true};
@@ -60,17 +60,19 @@ export class GroupsComponent implements OnInit {
       groups => {
         this.groups = groups;
         this.currentGroup=groups[0];
-        //all code must be here not out
-        console.log(this.groups);
-        console.log("selected group",this.currentGroup);
+        // //all code must be here not out
+        // console.log(this.groups);
+        console.log("selected group",this.currentGroup.name);
+        // console.log("retrun : ",this.groupService.listMembers("os"));
+        this.groupService.listMembers(this.currentGroup.name).then( (members) => {
+                                                      this.members=members['members'];
+                                                      console.log(this.members[0].name)
+                                                    });
       },
       err => {
         console.log(err);
       });
 
-
-      this.groupService.listMembers().then(members => this.members = members);
-      console.log("members:",this.members);
 
 
   }

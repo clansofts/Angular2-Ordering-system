@@ -1,7 +1,7 @@
 <p>
-<i class="fa fa-window-close-o"></i>
-  groups works!
+<i class="fa fa-window-close"></i> groups works!
 </p>
+
 <div class="row " >
   <div class="col-md-9 text-center">
     <input type="text"#groupName >
@@ -13,14 +13,14 @@
     <h3>my groups</h3>
     <ul class="heroes">
       <li *ngFor="let group of groups"
-        [class.selected]="group === selectedHero"
+        [class.selected]="hers === selectedHero"
         (click)="onSelect(group)">
         <span class="badge">{{group.id}}</span> {{group.name}}
     </li>
     </ul>
   </div>
   <div class="col-md-9">
-  
+
   <h4>{{currentGroup?.name}} members</h4>
   <div class="row ">
     <template #inviteTemplate let-r="result" let-t="term">

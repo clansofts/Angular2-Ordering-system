@@ -35,16 +35,24 @@ export class GroupsService {
       .map(response => response.json());
   }
 
-  listMembers() {
-    let Url = 'http://localhost:8090/groups/';
-    let params = new URLSearchParams();
-    params.set('name', "os");
+  listMembers(gname:string) {
+    // let Url = 'http://localhost:8090/groups/';
+    // let params = new URLSearchParams();
+    // params.set('name', "os");
+    // let options = this.jwt();
+    // options.search = params;
+    // console.log("params :",params);
+    // return this.http.get(Url,options)
+    //   .toPromise()
+    //   .then(response => response.json() as User[])
+
+    let Url = 'http://localhost:8090/groups/'+gname+'/members';
+    //let params = new URLSearchParams();
+    //params.set('name', "os");
     let options = this.jwt();
-    options.search = params;
-    console.log("params :",params);
-    return this.http.get(Url,options)
-      .toPromise()
-      .then(response => response.json() as User[])
+    //options.search = params;
+    console.log("url :",Url);
+    return this.http.get(Url,options).toPromise().then(response => <User[]> response.json()  )
 
   }
 
