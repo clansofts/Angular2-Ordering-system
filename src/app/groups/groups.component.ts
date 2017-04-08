@@ -56,17 +56,17 @@ export class GroupsComponent implements OnInit {
 
   ngOnInit() {
 
-    this.groupService.list().subscribe(
+    this.groupService.list(this.currentUser.name).subscribe(
       groups => {
         this.groups = groups;
         this.currentGroup=groups[0];
         // //all code must be here not out
-        // console.log(this.groups);
+        console.log("all groups :",this.groups);
         console.log("selected group",this.currentGroup.name);
         // console.log("retrun : ",this.groupService.listMembers("os"));
         this.groupService.listMembers(this.currentGroup.name).then( (members) => {
                                                       this.members=members['members'];
-                                                      console.log(this.members[0].name)
+                                                      console.log("members",this.members.length)
                                                     });
       },
       err => {
@@ -80,7 +80,10 @@ export class GroupsComponent implements OnInit {
   addGroup(name:string){
     console.log("add");
     this.groupService.add({owner:this.currentUser.name,name:name,members:[]}).subscribe(
-      data =>{},error => {}
+      data =>{
+        this.groups.push(data);
+        console.log("return group ",data)
+      },error => {}
     );
   }
 
@@ -102,6 +105,10 @@ export class GroupsComponent implements OnInit {
 
   onSelect(group: Group): void {
   this.currentGroup = group;
+  this.groupService.listMembers(this.currentGroup.name).then( (members) => {
+                                                this.members=members['members'];
+                                                console.log("members",this.members)
+                                              });
   console.log(this.currentGroup);
 }
 inviteItemTmp(event) {
