@@ -1,51 +1,75 @@
-<p>
-<i class="fa fa-window-close"></i> groups works!
-</p>
 
-<div class="row " >
-  <div class="col-md-9 text-center">
-    <input type="text"#groupName >
-    <button class="btn btn-sm btn-success" (click)="addGroup(groupName.value)">add group</button>
-  </div>
-</div>
 <div class="row jumbotron">
   <div class="col-md-3">
-    <h3>my groups</h3>
-    <ul class="heroes">
-      <li *ngFor="let group of groups"
-        [class.selected]="hers === selectedHero"
-        (click)="onSelect(group)">
-        <span class="badge">{{group.id}}</span> {{group.name}}
-    </li>
+
+<div class="row">
+  <div class="col-md-12">
+    <h4>My Groups</h4>
+    <div class="input-group">
+      <input type="text" class="form-control" #groupName >
+      <span class="input-group-btn">
+      <button class="btn btn-secondary" (click)="addGroup(groupName.value)">add group</button>
+    </span>
+    </div>
+  </div>
+  <div class="col-md-12">
+
+    <ul class="list-group">
+      <li class="list-group-item justify-content-between" *ngFor="let group of groups" [class.selected]="hers === selectedHero" (click)="onSelect(group)">
+         {{group.name}}
+        <span class="badge badge-default badge-pill">{{group?.members.length}}</span>
+      </li>
     </ul>
   </div>
-  <div class="col-md-9">
+</div>
 
-  <h4>{{currentGroup?.name}} members</h4>
-  <div class="row ">
-    <template #inviteTemplate let-r="result" let-t="term">
-      <img [src]="r.avatar ? r.avatar : '/src/assets/images/default-avatar.jpg'" width="16">
-      {{ r.name }}
-    </template>
-    <div class="col-md-4  input-group">
-      <input type="text" class="form-control" name="invite" [ngbTypeahead]="search"
-             [resultTemplate]="inviteTemplate"
-             [inputFormatter]="formatter" (selectItem)="inviteItemTmp($event)"/>
-      <span class="input-group-btn">
-        <button class="btn btn-secondary" type="button" (click)="inviteItemHandle()">add</button>
-      </span>
     </div>
+  <div class="col-md-9">
+    <div class="row">
+      <div class="col-md-12">
+        <h4>{{currentGroup?.name}} members</h4>
+      </div>
+      <div class="col-md-12">
+        <template #inviteTemplate let-r="result" let-t="term">
+          <img [src]="r.avatar ? r.avatar : '/src/assets/images/default-avatar.jpg'" width="16">
+          {{ r.name }}
+        </template>
+        <div class="col-md-9  input-group">
+          <input type="text" class="form-control" name="invite" [ngbTypeahead]="search"
+                 [resultTemplate]="inviteTemplate"
+                 [inputFormatter]="formatter" (selectItem)="inviteItemTmp($event)"/>
+          <span class="input-group-btn">
+            <button class="btn btn-secondary" type="button" (click)="inviteItemHandle()">add</button>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-3" *ngFor="let user of members">
+              <user-card [user]="user" [button]="{text:'Remove',class:'btn-danger'}" (buttonClicked)="removeUser($event)"></user-card>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3" *ngFor="let user of invited_users">
+              <user-card [user]="user" [button]="{text:'Remove',class:'btn-danger'}" (buttonClicked)="removeUser($event)"></user-card>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+
+  <!-- <div class="row ">
+
 
   </div>
   <div class="row">
-    <div class="col-sm-2" *ngFor="let user of invited_users">
 
-        <user-card [user]="user" [button]="{text:'Remove',class:'btn-danger'}" (buttonClicked)="removeUser($event)"></user-card>
-
-    </div>
-  </div>
+  </div> -->
 
 
 
   </div>
+
 </div>

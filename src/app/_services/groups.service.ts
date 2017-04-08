@@ -11,10 +11,8 @@ export class GroupsService {
 
   constructor(private http: Http) { }
 
-  list() {
-
-      return this.http.get('http://localhost:8090/groups/list', this.jwt()).map(response => <Group[]> response.json());;
-
+  list(name:string) {
+    return this.http.get('http://localhost:8090/groups/'+name+'/list', this.jwt()).map(response => <Group[]> response.json());;
   }
 
   add(group: Group) {
