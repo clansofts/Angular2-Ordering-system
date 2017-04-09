@@ -50,7 +50,7 @@ export class GroupsService {
     let options = this.jwt();
     //options.search = params;
     console.log("url :",Url);
-    return this.http.get(Url,options).toPromise().then(response => <User[]> response.json()  )
+    return this.http.get(Url,options).toPromise().then(response => <User[]> response.json())
 
   }
 

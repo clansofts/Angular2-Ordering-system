@@ -32,7 +32,7 @@ import { UserCardComponent } from './user-card/user-card.component';
 import {FriendsService} from "./_services/friends.service";
 import {UtilService} from "./_services/util.service";
 import {NotificationService} from "./_services/notification.service";
-
+import {HomeService} from "./_services/home.service";
 import { FileSelectDirective } from 'ng2-file-upload';
 
 @NgModule({
@@ -66,7 +66,8 @@ import { FileSelectDirective } from 'ng2-file-upload';
     FriendsService,
     UserService,
     UtilService,
-    NotificationService
+    NotificationService,
+    HomeService
   ],
   bootstrap: [AppComponent]
 })
