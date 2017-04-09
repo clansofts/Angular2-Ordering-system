@@ -36,6 +36,7 @@ import {NotificationService} from "./_services/notification.service";
 
 import { FileSelectDirective } from 'ng2-file-upload';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { NotificationsComponent } from './notifications/notifications.component'
     AddOrderComponent,
     UserCardComponent,
     FileSelectDirective,
-    NotificationsComponent
+    NotificationsComponent,
+    OrderDetailsComponent
   ],
   imports: [
     BrowserModule,
