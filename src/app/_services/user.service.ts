@@ -34,6 +34,25 @@ export class UserService {
     return this.http.delete('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
   }
 
+  search(data) {
+    if (data === '') {
+      return Observable.of([]);
+    }
+
+    let searchUrl = 'http://localhost:8090/users/search';
+
+    let params = new URLSearchParams();
+    params.set('field', data.field);
+    params.set('q', data.q);
+
+    let options = this.jwt();
+    options.search = params;
+
+    return this.http
+      .get(searchUrl, options)
+      .map(response => <string[]> response.json());
+  }
+
   private jwt() {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser && currentUser.token) {

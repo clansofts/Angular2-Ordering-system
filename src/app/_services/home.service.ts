@@ -16,5 +16,11 @@ export class HomeService {
     let options = this.jwt();
     return this.http.get(Url,options).toPromise().then(response => <Order[]> response.json())
   }
-
+  private jwt() {
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUser && currentUser.token) {
+      let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
+      return new RequestOptions({ headers: headers });
+    }
+  }
 }
