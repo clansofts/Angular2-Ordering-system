@@ -25,10 +25,9 @@ export class AuthenticationService {
     }
 
     logout() {
-    console.log("hi");
         if (this.getCurrentUser() != null)
         {
-          var obj =  {user_id : this.getCurrentUser().id};
+          let obj =  {user_id : this.getCurrentUser()._id};
           console.log(obj);
           this.notifyService.sendLogoutMessage(obj);
         }

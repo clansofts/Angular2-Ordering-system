@@ -25,7 +25,7 @@ export class FriendsService {
   }
 
 
-  deleteFriend(query): Promise<User>{
+  deleteFriend(query): Promise<any>{
     let Url = 'http://localhost:8090/follow/delete';
     let params = new URLSearchParams();
     params.set('from', query.reqFrom);
@@ -49,9 +49,10 @@ export class FriendsService {
       return Observable.of([]);
     }
 
-    let searchUrl = 'http://localhost:8090/users/search';
+    let searchUrl = 'http://localhost:8090/follow/search';
 
     let params = new URLSearchParams();
+    params.set('user_id', data.user_id);
     params.set('field', data.field);
     params.set('q', data.q);
 

@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(this.model.email, this.model.password)
       .subscribe(
         data => {
-          var obj = {user_id : this.authenticationService.getCurrentUser().id};
+          var obj = {user_id : this.authenticationService.getCurrentUser()._id};
           this.notifyService.sendLoginMessage(obj);
           this.router.navigate([this.returnUrl]);
         },

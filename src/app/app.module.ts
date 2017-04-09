@@ -12,6 +12,7 @@ import { AuthenticationService } from './_services/authentication.service';
 import { UserService } from './_services/user.service';
 import { GroupsService } from './_services/groups.service';
 import { AlertComponent } from './_helpers/alert.component';
+import { OrderService } from './_services/orders.service';
 
 import { AuthGuard } from './_guards/auth.guard';
 
@@ -34,6 +35,8 @@ import {UtilService} from "./_services/util.service";
 import {NotificationService} from "./_services/notification.service";
 import {HomeService} from "./_services/home.service";
 import { FileSelectDirective } from 'ng2-file-upload';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +51,9 @@ import { FileSelectDirective } from 'ng2-file-upload';
     GroupInfoComponent,
     AddOrderComponent,
     UserCardComponent,
-    FileSelectDirective
+    FileSelectDirective,
+    NotificationsComponent,
+    OrderDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -65,6 +70,7 @@ import { FileSelectDirective } from 'ng2-file-upload';
     AuthenticationService,
     FriendsService,
     UserService,
+    OrderService,
     UtilService,
     NotificationService,
     HomeService

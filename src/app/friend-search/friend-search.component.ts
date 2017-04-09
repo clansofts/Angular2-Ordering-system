@@ -50,7 +50,7 @@ export class FriendSearchComponent implements OnInit {
   }
 
   makeFreind(): void {
-      this.query = {reqFrom :this.authService.getCurrentUser().id,reqTo:this.user._id};
+      this.query = {reqFrom :this.authService.getCurrentUser()._id,reqTo:this.user._id};
       this.friendService.makeFriendShip(this.query)
        .subscribe(
         data => {
@@ -66,7 +66,7 @@ export class FriendSearchComponent implements OnInit {
   }
 
   deleteFollower(): void{
-    let query = {reqFrom :this.authService.getCurrentUser().id,reqTo:this.user._id};
+    let query = {reqFrom :this.authService.getCurrentUser()._id,reqTo:this.user._id};
     this.friendService.deleteFriend(query)
       .then((deleteFriend) => {
         this.deleteFriend = deleteFriend;
