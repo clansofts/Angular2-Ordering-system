@@ -56,7 +56,7 @@ export class GroupsComponent implements OnInit {
 
   ngOnInit() {
 
-    this.groupService.list(this.currentUser.name).subscribe(
+    this.groupService.list(this.currentUser._id).subscribe(
       groups => {
         this.groups = groups;
         this.currentGroup=groups[0];
@@ -79,7 +79,7 @@ export class GroupsComponent implements OnInit {
 
   addGroup(name:string){
     console.log("add");
-    this.groupService.add({owner:this.currentUser.name,name:name,members:[]}).subscribe(
+    this.groupService.add({owner:this.currentUser._id,name:name,members:[]}).subscribe(
       data =>{
         this.groups.push(data);
         console.log("return group ",data)
