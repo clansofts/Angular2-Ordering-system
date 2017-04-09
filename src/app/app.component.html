@@ -5,7 +5,6 @@
             aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    {{message}}
     <a class="navbar-brand" href="#">Navbar</a>
 
     <div class="collapse navbar-collapse" id="containerNavbar">
@@ -34,8 +33,12 @@
       </ul>
     </div>
   </nav>
+  <ul style="float: right">
+    <li *ngFor="let message of messages">{{message}}</li>
+  </ul>
   <div class="container">
-    <alert></alert>
+    <alert>
+    </alert>
     <router-outlet></router-outlet>
   </div>
 </div>

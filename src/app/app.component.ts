@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, OnChanges, DoCheck} from '@angular/core';
 
 import { AuthenticationService } from './_services/authentication.service';
 import {NotificationService} from "./_services/notification.service";
@@ -9,9 +9,9 @@ import { UtilService } from './_services/util.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnDestroy{
+export class AppComponent implements OnInit, OnDestroy,  OnChanges, DoCheck{
   title = 'app works!';
-  messages;
+  messages = [];
   connection;
   message;
 
@@ -25,9 +25,32 @@ export class AppComponent implements OnInit, OnDestroy{
   ngOnInit() {
     this.connection = this.notifyService.getMessages().subscribe(message => {
       console.log(typeof message);
-      this.message=message;
+      console.log(message);
+      this.messages.push(message['notification']);
     });
-    this.notifyService.sendMessage("app say hi");
+    this.getNotiFromDb();
+  }
+
+  getNotiFromDb(){
+    if(this.authenticationService.isLoggedIn())
+    this.notifyService.getMessagesFromDb(this.authenticationService.getCurrentUser().id).then(message =>{
+      for (var i=0; i<message['notifications'].length ; i++)
+      {
+        this.messages.push(message['notifications'][i]);
+      }
+      console.log(this.messages);
+    });
+  }
+
+
+  ngOnChanges()
+  {
+    console.log("ng change");
+  }
+
+  ngDoCheck()
+  {
+    console.log("ng check");
   }
 
   ngOnDestroy() {
@@ -35,9 +58,9 @@ export class AppComponent implements OnInit, OnDestroy{
   }
 
 
-  sendMessage(){
-    this.notifyService.sendMessage(this.message);
-    this.message = '';
-  }
+  // sendMessage(){
+  //   this.notifyService.sendMessage(this.message);
+  //   this.message = '';
+  // }
 
 }
