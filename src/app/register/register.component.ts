@@ -5,7 +5,7 @@ import { AlertService } from '../_services/alert.service';
 import { UserService } from '../_services/user.service';
 
 import {  FileUploader } from 'ng2-file-upload/ng2-file-upload';
-const URL = 'http://localhost:8090/upload/photo';
+const UPLOAD_URL = 'http://localhost:8090/upload/photo';
 
 
 @Component({
@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
   avatar: any = {valid:true,error: ""};
   loading = false;
 
-  public uploader:FileUploader = new FileUploader({url: URL, itemAlias: 'photo'});
+  public uploader:FileUploader = new FileUploader({url: UPLOAD_URL, itemAlias: 'photo'});
 
   constructor(
     private router: Router,

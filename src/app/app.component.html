@@ -28,6 +28,22 @@
           <a class="nav-link" [routerLink]="['/groups']">Groups</a>
         </li>
         <li *ngIf="authenticationService.isLoggedIn()" class="nav-item">
+          <div class="col">
+            <div ngbDropdown class="d-inline-block">
+              <button class="btn btn-outline-primary" id="dropdownMenu1" ngbDropdownToggle>Notifications</button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                  <ul class="list-group">
+                    <li class="list-group-item dropdown-item">Cras justo odio</li>
+                    <li class="list-group-item dropdown-item">Dapibus ac facilisis in</li>
+                    <li class="list-group-item dropdown-item">Morbi leo risus</li>
+                    <li class="list-group-item dropdown-item">Porta ac consectetur ac</li>
+                    <li class="list-group-item dropdown-item">Vestibulum at eros</li>
+                  </ul>
+                </div>
+            </div>
+          </div>
+        </li>
+        <li *ngIf="authenticationService.isLoggedIn()" class="nav-item">
           <a (click)="authenticationService.logout()" href="#" class="nav-link">Logout</a>
         </li>
       </ul>
