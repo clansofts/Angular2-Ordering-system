@@ -8,6 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class UserCardComponent implements OnInit {
   @Input() user;
   @Input() button;
+  @Input() badge;
   @Output() buttonClicked = new EventEmitter();
   constructor() { }
 
