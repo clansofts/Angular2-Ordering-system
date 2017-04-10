@@ -16,6 +16,13 @@ export class HomeService {
     let options = this.jwt();
     return this.http.get(Url,options).toPromise().then(response => <Order[]> response.json())
   }
+
+  getFriendsOrders(id:string){
+    let Url='http://localhost:8090/orders/'+id+'/friends';
+    let options = this.jwt();
+    return this.http.get(Url,options).toPromise().then(response => <Order[]> response.json())
+  }
+
   private jwt() {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser && currentUser.token) {
