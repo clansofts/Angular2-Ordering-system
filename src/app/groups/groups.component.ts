@@ -80,7 +80,7 @@ export class GroupsComponent implements OnInit {
 
   addGroup(name: string) {
     console.log("add");
-    this._groups.add({owner: this._auth.getCurrentUser()._id, name: name, members: []}).subscribe(
+    this._groups.add({ owner: this._auth.getCurrentUser()._id, name: name, members: []}).subscribe(
       data => {
         this.groups.push(data);
         console.log("return group ", data)

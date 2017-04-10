@@ -37,7 +37,7 @@
             </div>
 
             <template #inviteTemplate let-r="result" let-t="term">
-              <img [src]="r.avatar ? 'http://localhost:8090/uploads/' + r.avatar : '/src/assets/images/default-avatar.jpg'" width="16">
+              <img *ngIf="invite_by == 'Friends'" [src]="r.avatar ? 'http://localhost:8090/uploads/' + r.avatar : '/src/assets/images/default-avatar.jpg'" width="16">
               {{ r.name }}
             </template>
 

@@ -12,7 +12,7 @@ export class HomeService {
   constructor(private http: Http) { }
 
   getMyOrders(id:string){
-    let Url='http://localhost:8090/orders/'+id;
+    let Url='http://localhost:8090/orders/?field=owner&owner='+id;
     let options = this.jwt();
     return this.http.get(Url,options).toPromise().then(response => <Order[]> response.json())
   }
