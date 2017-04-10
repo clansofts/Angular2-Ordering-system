@@ -16,17 +16,20 @@ export class HomeComponent implements OnInit {
 
   currentUser: User;
   friends:User[]=[];
-  myOrders:Order[]=[];
+  myOrders:Order[];
   friendsOrders:Order[]=[];
 
   constructor(private homeService: HomeService,private uerService: AuthenticationService) {
     this.currentUser=uerService.getCurrentUser();
-    console.log("user",this.currentUser);
    }
 
   ngOnInit() {
-    // console.log(this.homeService.getMyOrders(this.currentUser._id));
-    // this.homeService.getMyOrders(this.currentUser._id).then((orders)=>this.myOrders=orders)
+     console.log(this.homeService.getMyOrders(this.currentUser._id));
+    this.homeService.getMyOrders(this.currentUser._id).then((orders)=>{console.log("result :",orders);
+                                                                        this.myOrders=orders;
+                                                                        console.log("my orders:",this.myOrders);
+                                                                        });
+
   }
 
 }

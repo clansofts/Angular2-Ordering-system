@@ -33,7 +33,7 @@ export class FriendSearchComponent implements OnInit {
 
   search(term: string): void {
     if (term != '')
-      this.friendService.search({field: "name", q: term})
+      this.friendService.search({field: "email", q: term})
         .subscribe(
           data => {
             this.user = data[0];
