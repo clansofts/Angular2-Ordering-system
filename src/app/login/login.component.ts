@@ -15,11 +15,11 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
 
   constructor(
+    private notifyService: NotificationService,
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
     private alertService: AlertService,
-    private notifyService: NotificationService
   ) { }
 
   ngOnInit() {
@@ -32,12 +32,12 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(this.model.email, this.model.password)
       .subscribe(
         data => {
-          var obj = {user_id : this.authenticationService.getCurrentUser()._id};
-          this.notifyService.sendLoginMessage(obj);
           this.router.navigate([this.returnUrl]);
+          let obj = {user_id : this.authenticationService.getCurrentUser()._id};
+          this.notifyService.sendLoginMessage(obj);
         },
         error => {
-          this.alertService.error(error.json().error);
+          this.alertService.error(error);
           this.loading = false;
         });
   }

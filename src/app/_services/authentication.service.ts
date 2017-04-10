@@ -17,9 +17,8 @@ export class AuthenticationService {
         return this.http.post('http://localhost:8090/auth/login', { email: email, password: password })
             .map((response: Response) => {
                 let user = response.json();
-                console.log(user);
                 if (user && user.token) {
-                    localStorage.setItem('currentUser', JSON.stringify(user));
+                  localStorage.setItem('currentUser', JSON.stringify(user));
                 }
             });
     }
@@ -28,7 +27,6 @@ export class AuthenticationService {
         if (this.getCurrentUser() != null)
         {
           let obj =  {user_id : this.getCurrentUser()._id};
-          console.log(obj);
           this.notifyService.sendLogoutMessage(obj);
         }
         localStorage.removeItem('currentUser');
