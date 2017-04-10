@@ -16,7 +16,6 @@ export class GroupsService {
   }
 
   add(group: Group) {
-    console.log("service");
     return this.http.post('http://localhost:8090/groups/add', group, this.jwt()).map((response: Response) => response.json());
   }
 
@@ -52,6 +51,26 @@ export class GroupsService {
     console.log("url :",Url);
     return this.http.get(Url,options).toPromise().then(response => <User[]> response.json())
 
+  }
+
+  search(data) {
+    if (data === '') {
+      return Observable.of([]);
+    }
+
+    let searchUrl = 'http://localhost:8090/groups/search';
+
+    let params = new URLSearchParams();
+    params.set('user_id', data.user_id);
+    params.set('field', data.field);
+    params.set('q', data.q);
+
+    let options = this.jwt();
+    options.search = params;
+
+    return this.http
+      .get(searchUrl, options)
+      .map(response => <string[]> response.json());
   }
 
   private jwt() {
