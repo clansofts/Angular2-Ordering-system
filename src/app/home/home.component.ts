@@ -24,12 +24,15 @@ export class HomeComponent implements OnInit {
    }
 
   ngOnInit() {
-     console.log(this.homeService.getMyOrders(this.currentUser._id));
-    this.homeService.getMyOrders(this.currentUser._id).then((orders)=>{console.log("result :",orders);
-                                                                        this.myOrders=orders;
-                                                                        console.log("my orders:",this.myOrders);
-                                                                        });
+    if (this.currentUser) {
+      console.log(this.homeService.getMyOrders(this.currentUser._id));
+      this.homeService.getMyOrders(this.currentUser._id).then((orders) => {
+        console.log("result :", orders);
+        this.myOrders = orders;
+        console.log("my orders:", this.myOrders);
+      });
 
+    }
   }
 
 }
