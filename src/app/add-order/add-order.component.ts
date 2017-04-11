@@ -10,6 +10,7 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/map';
 import {FriendsService} from "../_services/friends.service";
+import {GroupsService} from "../_services/groups.service";
 
 import {FileUploader} from 'ng2-file-upload/ng2-file-upload';
 const UPLOAD_URL = 'http://localhost:8090/upload/photo';
@@ -28,7 +29,7 @@ export class AddOrderComponent implements OnInit {
     invite: {}, invite_valid: true
   };
   invited_users = [];
-  order_for_values = ["Lunch", "BreackFast"];
+  order_for_values = ["Lunch", "BreackFast","Dinner"];
   invite_by_values = ["Friends", "Groups"];
   invite_by;
   menu_photo: any = {valid: true, error: ""};
@@ -40,6 +41,7 @@ export class AddOrderComponent implements OnInit {
               private _user: UserService,
               private _alert: AlertService,
               private _friend: FriendsService,
+              private _groups: GroupsService,
               private _order: OrderService) {
   }
 
@@ -66,13 +68,17 @@ export class AddOrderComponent implements OnInit {
       .distinctUntilChanged()
       .do(() => this.searching = true)
       .switchMap(term =>
-        this._friend.search({user_id : this._auth.getCurrentUser()._id,field: "name", q: term})
+        this._search({user_id : this._auth.getCurrentUser()._id,field: "name", q: term})
           .do(() => this.searchFailed = false)
           .catch(() => {
             this.searchFailed = true;
             return Observable.of([]);
           }))
       .do(() => this.searching = false);
+
+  _search = function (data) {
+    return (this.invite_by === "Friends") ? this._friend.search(data) : this._groups.search(data);
+  };
 
   formatter = (x: {name: string}) => x.name;
 
@@ -90,9 +96,15 @@ export class AddOrderComponent implements OnInit {
     if (exists) {
       this.tmp.invite_valid = false;
     } else {
+      this.tmp.invite_valid = true;
       if (Object.keys(this.tmp.invite).length > 0) {
-        this.invited_users.push(this.tmp.invite);
-      }
+        if (this.invite_by === "Friends" && !this.tmp.invite.members) {
+          this.invited_users.push(this.tmp.invite);
+        }else if(this.invite_by === "Groups" && this.tmp.invite.members){
+          for (let j = 0; j < this.tmp.invite.members.length; j++) {
+            this.invited_users.push(this.tmp.invite.members[j]);
+          }
+        }}
     }
   }
 

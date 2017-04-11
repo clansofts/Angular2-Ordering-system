@@ -3,7 +3,7 @@
 <div class="jumbotron">
 
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-7">
       <table class="table table-striped">
         <thead>
         <tr>
@@ -24,41 +24,49 @@
         </tr>
         </tbody>
       </table>
-      <div class="row">
-        <div class="col-4">
-          <div class="form-group">
-            <label class="sr-only">Item</label>
-            <input type="text" class="form-control" placeholder="Item">
+      <form name="form" (ngSubmit)="f.form.valid && addMeal()" #f="ngForm" novalidate>
+        <div class="row">
+          <div class="col-4">
+            <div class="form-group">
+              <label class="sr-only">Item</label>
+              <input type="text" class="form-control" name="name" placeholder="Item" [(ngModel)]="model.name" #name="ngModel" required>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label class="sr-only">Amount</label>
+              <input type="number" class="form-control" name="amount" placeholder="Amount" value="1" [(ngModel)]="model.amount" #amount="ngModel" required>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label class="sr-only">Price</label>
+              <input type="number" class="form-control" name="price" placeholder="Price" [(ngModel)]="model.price" #price="ngModel" required>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <label class="sr-only">Comment</label>
+              <input type="text" class="form-control" name="comment" placeholder="Comment" [(ngModel)]="model.comment" #comment="ngModel" required>
+            </div>
           </div>
         </div>
-        <div class="col-2">
-          <div class="form-group">
-            <label class="sr-only">Amount</label>
-            <input type="number" class="form-control" placeholder="Amount">
+        <div class="row">
+          <div class="col-md-12">
+            <button class="btn btn-secondary">Add</button>
+            <div *ngIf="f.submitted && (!model.name || !model.amount || !model.price || !model.comment)" class="form-control-feedback">All fields are required</div>
           </div>
         </div>
-        <div class="col-2">
-          <div class="form-group">
-            <label class="sr-only">Price</label>
-            <input type="number" class="form-control" placeholder="Price">
-          </div>
-        </div>
-        <div class="col-4">
-          <div class="form-group">
-            <label class="sr-only">Comment</label>
-            <input type="text" class="form-control" placeholder="Comment">
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <button class="btn btn-secondary">Add</button>
-        </div>
-      </div>
-
+      </form>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-5">
       <h2><i class="fa fa-users"></i> Friends Invited</h2>
+      <div class="row">
+        <div class="col-sm-4" *ngFor="let user of invited_users">
+          <user-card [user]="user" [badge]="user.badge" [button]="{text:'Remove',class:'btn-danger'}"
+                     (buttonClicked)="removeUser($event)"></user-card>
+        </div>
+      </div>
     </div>
   </div>
 </div>

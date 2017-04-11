@@ -1,0 +1,9 @@
+.card-img-holder {
+  position: relative;
+}
+
+.card-badge {
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+}

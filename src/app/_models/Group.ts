@@ -1,6 +1,5 @@
 export class Group {
-    owner:string;
-    name:string;
-    members:string[];
-
+  name:string;
+  owner: any;
+  members : any
 }
