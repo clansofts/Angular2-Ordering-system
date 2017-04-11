@@ -43,7 +43,18 @@ export class NotificationService {
   getMessagesFromDb(id: string): Promise<any>{
     let Url = 'http://localhost:8090/notification/list';
     let params = new URLSearchParams();
-    console.log(id);
+    params.set('user_id', id);
+    let options = this.jwt();
+    options.search = params;
+    return this.http.get(Url,options)
+      .toPromise()
+      .then(response => response.json())
+      .catch(this.handleError);
+  }
+
+  sendReadnotiState(id: string): Promise<any>{
+    let Url = 'http://localhost:8090/notification/status';
+    let params = new URLSearchParams();
     params.set('user_id', id);
     let options = this.jwt();
     options.search = params;

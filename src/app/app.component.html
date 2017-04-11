@@ -5,18 +5,19 @@
             aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="#">Navbar</a>
-
     <div class="collapse navbar-collapse" id="containerNavbar">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#"><i class="fa fa-home"></i> Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" [routerLink]="['/']"><i class="fa fa-home"></i> Home <span class="sr-only">(current)</span></a>
         </li>
         <li *ngIf="!authenticationService.isLoggedIn()" class="nav-item">
           <a class="nav-link" [routerLink]="['/login']"><i class="fa fa-user"></i> Login</a>
         </li>
         <li *ngIf="!authenticationService.isLoggedIn()" class="nav-item">
           <a class="nav-link" [routerLink]="['/register']"><i class="fa fa-unlock"></i> Register</a>
+        </li>
+        <li *ngIf="authenticationService.isLoggedIn()" class="nav-item">
+          <a class="nav-link" [routerLink]="['/orders']"><i class="fa fa-smile"></i> Orders</a>
         </li>
         <li *ngIf="authenticationService.isLoggedIn()" class="nav-item">
           <a class="nav-link" [routerLink]="['/add-order']"><i class="fa fa-plus"></i> Add Order</a>

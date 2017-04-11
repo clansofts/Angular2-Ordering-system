@@ -72,6 +72,7 @@ export class FriendSearchComponent implements OnInit {
         this.deleteFriend = deleteFriend;
         console.log(this.user);
         this.notifyDelete.emit(this.user);
+        this.user = null;
     });
   }
 

@@ -1,27 +1,27 @@
 <div class="container">
-  <app-friend-search [friends]="friends" (notifyDelete)="onDeleteNotify($event)" (notifyAdd)='onAddNotify($event)'></app-friend-search>
-  <div class="well well-sm">
-    <strong>Friends  List</strong>
-  </div>
-  <div id="products" class="card-deck row grid-group" *ngIf="friends && friends!= null">
-
-
-    <div class="item  col-sm-4  grid-group-item"  *ngFor ="let friend of friends" >
-      <div class="thumbnail">
-        <img class="group card-img-top list-group-image" width="200" height="200" src="http://placehold.it/400x250/000/fff" alt="" />
-        <div class="card-block">
-          <div class="col-md-12 text-center">
-            <h6 class="group card-title">{{friend.name}}</h6>
-          </div>
-          <div class="row">
-            <div class="col-md-12 text-center">
-              <button class="btn btn-sm btn-danger" (click)="deleteFollower(friend)" >Un Follow</button>
+  <div class="row">
+    <div class="col-9">
+      <ngb-tabset>
+        <ngb-tab>
+          <template ngbTabTitle>Followings</template>
+          <template ngbTabContent>
+            <div class="card-group">
+              <user-card *ngFor="let friend of friends" [user]="friend" [where]="'friendComponent'" [button]="{text:'Un Follow',class:'btn-danger'}" (buttonClicked)="deleteFollower(friend)"></user-card>
             </div>
-          </div>
-        </div>
-      </div>
+
+          </template>
+        </ngb-tab>
+        <ngb-tab>
+          <template ngbTabTitle>Followers</template>
+          <template ngbTabContent>
+
+
+          </template>
+        </ngb-tab>
+      </ngb-tabset>
     </div>
-
-
+    <div class="col-3">
+      <app-friend-search [friends]="friends" (notifyDelete)="onDeleteNotify($event)" (notifyAdd)='onAddNotify($event)'></app-friend-search>
+    </div>
   </div>
 </div>

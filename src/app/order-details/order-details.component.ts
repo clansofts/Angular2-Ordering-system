@@ -22,7 +22,7 @@ export class OrderDetailsComponent implements OnInit {
   id: number;
   private route_sub: any;
   private http_sub: any;
-  order = {};
+  order = {meals: []};
   invited_users = [];
   joined_users = [];
 
@@ -34,14 +34,19 @@ export class OrderDetailsComponent implements OnInit {
   ngOnInit() {
     this.route_sub = this._route.params.subscribe(params => {
       this.id = params['id'];
-      this.http_sub = this.pollData(this.id).subscribe(
-        data => {
-          this.setData(data)
-        },
-        error => {
-        });
+      this.http_sub = this.pollData(this.id);
+      this.refreshData();
     });
     this.model.owner = this._auth.getCurrentUser()._id;
+  }
+
+  refreshData() {
+    this.http_sub.subscribe(
+      data => {
+        this.setData(data)
+      },
+      error => {
+      });
   }
 
   setData(data) {
@@ -57,8 +62,6 @@ export class OrderDetailsComponent implements OnInit {
     }
 
     this.invited_users = data.invited;
-
-
   };
 
   pollData(id): Observable<any> {
@@ -87,15 +90,37 @@ export class OrderDetailsComponent implements OnInit {
 
   addMeal() {
     this.loading = true;
-    console.log(this.model)
-    this._order.addMeal(this.id,this.model)
+    this._order.addMeal(this.id, this.model)
       .subscribe(
         data => {
-
+          this.loading = false;
+          this.order.meals.push({
+            name: this.model.name,
+            amount: this.model.amount,
+            price: this.model.price,
+            comment: this.model.comment,
+            owner: this._auth.getCurrentUser()
+          });
+          this.model = {owner : this._auth.getCurrentUser()._id}
         },
         error => {
-
+          this.loading = false;
         });
+  }
+
+  removeMeal(id){
+    this._order.removeMeal(this.id,id).subscribe(
+      data => {
+        for (let i = 0; i < this.order.meals.length; i++) {
+          if (this.order.meals[i]._id == id) {
+            this.order.meals.splice(i, 1);
+          }
+        }
+        console.log(data)
+      },
+      error => {
+      });
+
   }
 
   ngOnDestroy() {

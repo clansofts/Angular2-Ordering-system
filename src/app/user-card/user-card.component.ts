@@ -9,6 +9,7 @@ export class UserCardComponent implements OnInit {
   @Input() user;
   @Input() button;
   @Input() badge;
+  @Input() where;
   @Output() buttonClicked = new EventEmitter();
   constructor() { }
 

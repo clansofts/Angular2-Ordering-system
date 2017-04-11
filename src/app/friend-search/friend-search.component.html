@@ -1,31 +1,10 @@
-<div id="search-component">
-  <h4>Friend Search</h4>
-  <input #searchBox id="search-box" (keyup)="search(searchBox.value)"/>
-  <div *ngIf="user">
-    <br><br><br>
-  </div>
-  <div id="products" class="card-deck row grid-group" *ngIf="user">
-    <br><br><br>
-    <br><br><br>
-    <br><br><br>
-    <div class="item  col-sm-4  grid-group-item">
-      <div class="thumbnail">
-        <img class="group card-img-top list-group-image" width="200" height="200"
-             src="http://placehold.it/400x250/000/fff" alt=""/>
-        <div class="card-block">
-          <div class="col-md-12 text-center">
-            <h6 class="group card-title"> {{user.name}} </h6>
-          </div>
-          <div class="row">
-            <div class="col-md-12 text-center">
-              <button class="btn btn-sm btn-success" (click)="makeFreind()" *ngIf="!following ">Follow</button>
-              <button class="btn btn-sm btn-danger" (click)="deleteFollower()" *ngIf="following ">Un Follow</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <br><br><br>
-    <p *ngIf="deleteFriend">{{deleteFriend.name}}</p>
-  </div>
+<div class="input-group">
+  <input type="text" class="form-control small" #searchBox  (keyup)="search(searchBox.value)" placeholder="Search for Friends...">
+  <span class="input-group-btn">
+    <button class="btn btn-secondary" (click)="search(searchBox.value)" type="button">Search!</button>
+  </span>
+</div>
+<div *ngIf="user">
+  <user-card [user]="user" [button]="{text:'Follow',class:'btn-success'}" (buttonClicked)="makeFreind()" *ngIf="!following"></user-card>
+  <user-card [user]="user" [button]="{text:'Un Follow',class:'btn-danger'}" (buttonClicked)="deleteFollower()" *ngIf="following"></user-card>
 </div>
