@@ -1,5 +1,8 @@
 <div class="card">
-  <img class="card-img-top img-fluid avatar" [src]="user.avatar ? 'http://localhost:8090/uploads/' + user.avatar : '/src/assets/images/default-avatar.jpg'" alt="{{user.name}}">
+  <div class="card-img-holder">
+    <img class="card-img-top img-fluid avatar" [src]="user.avatar ? 'http://localhost:8090/uploads/' + user.avatar : '/src/assets/images/default-avatar.jpg'" alt="{{user.name}}">
+    <span *ngIf="badge" class="card-badge badge {{badge.class}}">{{badge.text}}</span>
+  </div>
   <div class="card-block">
     <h5 class="card-title">{{user.name}}</h5>
     <button *ngIf="button" class="btn btn-sm {{button.class}}" (click)="doClick($event)">{{button.text}}</button>

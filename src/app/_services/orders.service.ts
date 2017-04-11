@@ -1,12 +1,17 @@
 ﻿import {Injectable} from '@angular/core';
 import {Http, Headers, RequestOptions, Response} from '@angular/http';
-import {Observable} from "rxjs";
+import { Observable } from 'rxjs';
+import { Subject } from 'rxjs/Subject';
 
 import {Order} from '../_models/order';
 
 @Injectable()
 export class OrderService {
   constructor(private http: Http) {
+  }
+
+  getById(id: number) {
+    return this.http.get('http://localhost:8090/orders/' + id, this.jwt()).map((response: Response) => response.json());
   }
 
   create(order: Order) {
