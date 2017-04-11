@@ -16,7 +16,8 @@ import {Subject} from 'rxjs/Subject';
   styleUrls: ['./order-details.component.css']
 })
 export class OrderDetailsComponent implements OnInit {
-  model : any = {};
+  model: any = {};
+  loading = false;
 
   id: number;
   private route_sub: any;
@@ -26,7 +27,8 @@ export class OrderDetailsComponent implements OnInit {
   joined_users = [];
 
   constructor(private _route: ActivatedRoute,
-              private _order: OrderService,) {
+              private _order: OrderService,
+              private _auth: AuthenticationService,) {
   }
 
   ngOnInit() {
@@ -34,24 +36,30 @@ export class OrderDetailsComponent implements OnInit {
       this.id = params['id'];
       this.http_sub = this.pollData(this.id).subscribe(
         data => {
-          this.order = data;
-          console.log(data);
-
-          for (let i = 0; i < data.invited.length; i++) {
-            if (this.joined_users.indexOf(data.invited[i]._id) != -1) {
-              data.invited[i].badge = {text: "Joined", "class": "badge-success"};
-            }else{
-              data.invited[i].badge = {text: "Waiting", "class": "badge-default"};
-            }
-          }
-
-          this.invited_users = data.invited;
-
+          this.setData(data)
         },
         error => {
         });
     });
+    this.model.owner = this._auth.getCurrentUser()._id;
   }
+
+  setData(data) {
+    this.order = data;
+    console.log(data);
+
+    for (let i = 0; i < data.invited.length; i++) {
+      if (this.joined_users.indexOf(data.invited[i]._id) != -1) {
+        data.invited[i].badge = {text: "Joined", "class": "badge-success", icon: "check"};
+      } else {
+        data.invited[i].badge = {text: "Waiting", "class": "badge-default", icon: "refresh"};
+      }
+    }
+
+    this.invited_users = data.invited;
+
+
+  };
 
   pollData(id): Observable<any> {
     //Creating a subject
@@ -77,8 +85,17 @@ export class OrderDetailsComponent implements OnInit {
     return pollSubject.asObservable();
   }
 
-  addMeal(){
+  addMeal() {
+    this.loading = true;
+    console.log(this.model)
+    this._order.addMeal(this.id,this.model)
+      .subscribe(
+        data => {
 
+        },
+        error => {
+
+        });
   }
 
   ngOnDestroy() {

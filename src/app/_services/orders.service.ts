@@ -18,6 +18,11 @@ export class OrderService {
     return this.http.post('http://localhost:8090/orders', order, this.jwt()).map((response: Response) => response.json());
   }
 
+  addMeal(order_id,meal) {
+    return this.http.post('http://localhost:8090/orders/' + order_id + '/meals', meal, this.jwt()).map((response: Response) => response.json());
+  }
+
+
   private jwt() {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser && currentUser.token) {

@@ -1,5 +1,5 @@
 <div class="container">
-  <nav class="navbar navbar-light bg-faded rounded navbar-toggleable-md">
+  <nav class="navbar navbar-inverse bg-primary navbar-toggleable-md">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
             data-target="#containerNavbar" aria-controls="containerNavbar" aria-expanded="false"
             aria-label="Toggle navigation">
@@ -21,7 +21,7 @@
         <li *ngIf="authenticationService.isLoggedIn()" class="nav-item">
           <a class="nav-link" [routerLink]="['/add-order']"><i class="fa fa-plus"></i> Add Order</a>
         </li>
-         <li *ngIf="authenticationService.isLoggedIn()" class="nav-item">
+        <li *ngIf="authenticationService.isLoggedIn()" class="nav-item">
           <a class="nav-link" [routerLink]="['/friends']"><i class="fa fa-users"></i> Friends</a>
         </li>
         <li *ngIf="authenticationService.isLoggedIn()" class="nav-item">
