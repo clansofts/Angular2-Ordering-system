@@ -37,6 +37,7 @@ import {HomeService} from "./_services/home.service";
 import { FileSelectDirective } from 'ng2-file-upload';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
+import {PushNotificationComponent} from "ng2-notifications/src/app/components/notification.component";
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
     UserCardComponent,
     FileSelectDirective,
     NotificationsComponent,
-    OrderDetailsComponent
+    OrderDetailsComponent,
+    PushNotificationComponent,
   ],
   imports: [
     BrowserModule,
