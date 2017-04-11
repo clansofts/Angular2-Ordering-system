@@ -1,0 +1,71 @@
+<p>
+  orders works!
+</p>
+<div class="row">
+  <!-- first row -->
+  <div class="col-md-12">
+    <div class="row">
+        <div class="col-md-12">
+          <div class="col-md-4" style="display: inline-block;">
+            <h3 style="display: inline-block;">My Orders</h3>
+          </div>
+          <div class="col-md-4 col-push-4" style="display: inline-block;">
+            <h4 style="display: inline-block;"><i class="fa fa-plus"></i> new order</h4>
+          </div>
+        </div>
+    </div>
+  </div>
+  <!-- second row -->
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-12">
+        <table class=" table table-hover table-bordered">
+          <thead>
+            <tr>
+
+              <th colspan="2">Order</th>
+              <th>Restrunat</th>
+              <th>Invited</th>
+              <th>Joined</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr [routerLink]="['/order-details',order._id]" *ngFor="let order of myOrders">
+              <td>{{order.order_for}}</td>
+              <td colspan="2">{{order.restaurant_name}}</td>
+              <td>{{order.invited.length}}</td>
+              <td>{{order.meals.length}}</td>
+
+              <td>Otto</td>
+              <td><i class="fa fa-plus"></i>&nbsp; &nbsp; &nbsp;  <i class="fa fa-remove"></i></td>
+            </tr>
+
+
+          </tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+  <!-- third row -->
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-4 col-push-6">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#">Next</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>

@@ -21,7 +21,8 @@ export class HomeService {
     console.log("x",ids)
     let Url='http://localhost:8090/orders/';
     let params = new URLSearchParams();
-    params.set('owner', ids.join());
+    params.set('field', "owners");
+    params.set('owners', ids.join());
     let options = this.jwt();
     options.search = params;
     return this.http.get(Url,options).toPromise().then(response => <Order[]> response.json())
