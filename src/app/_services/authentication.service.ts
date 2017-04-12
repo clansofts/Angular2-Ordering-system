@@ -23,6 +23,17 @@ export class AuthenticationService {
             });
     }
 
+    loginFB(userID : number){
+        return this.http.post('http://localhost:8090/auth/facebook',{ userID: userID })
+          .map((response: Response) => {
+            let user = response.json();
+            if (user && user.token){
+              localStorage.setItem('currentUser', JSON.stringify(user));
+            }
+          });
+
+    }
+
     logout() {
         if (this.getCurrentUser() != null)
         {

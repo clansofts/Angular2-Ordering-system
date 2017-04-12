@@ -17,3 +17,7 @@
   margin-right: 10px;
   width: 8rem;
 }
+
+.badge-success {
+  background-color: #5cb85c;
+}
