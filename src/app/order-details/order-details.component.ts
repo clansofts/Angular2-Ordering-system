@@ -17,7 +17,7 @@ import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./order-details.component.css']
 })
 export class OrderDetailsComponent implements OnInit {
-  model: any = {};
+  model: any = {amount:1};
   loading = false;
 
   id: number;
@@ -26,10 +26,8 @@ export class OrderDetailsComponent implements OnInit {
   order = {meals: []};
   invited_users = [];
   joined_users = [];
-  totals = {
-    price: 0,
-    quantity: 0
-  };
+  addPermession = false;
+  totals = {price: 0, quantity: 0};
 
   constructor(private _route: ActivatedRoute,
               private _order: OrderService,
@@ -50,18 +48,28 @@ export class OrderDetailsComponent implements OnInit {
     this.model.owner = this._auth.getCurrentUser()._id;
   }
 
-
   setData(data) {
     this.order = data;
 
     this.joined_users = [];
+    this.totals.quantity = 0;
+    this.totals.price = 0;
+
     for (let i = 0; i < data.meals.length; i++) {
       this.joined_users.push(data.meals[i].owner._id);
       this.totals.quantity += data.meals[i].amount;
       this.totals.price += data.meals[i].price;
     }
-    console.log(this.joined_users);
+
     for (let i = 0; i < data.invited.length; i++) {
+      if (data.invited.indexOf(this._auth.getCurrentUser()._id) != -1) {
+        console.log("invited")
+        this.addPermession = true;
+      }
+      if (this._auth.getCurrentUser()._id == data.owner._id) {
+        console.log("owner")
+        this.addPermession = true;
+      }
       if (this.joined_users.indexOf(data.invited[i]._id) != -1) {
         data.invited[i].badge = {text: "Joined", "class": "badge-success", icon: "check"};
       } else {
@@ -87,7 +95,7 @@ export class OrderDetailsComponent implements OnInit {
     };
 
     //Subscribe our "subscription-function" to custom subject (observable) with 4000ms of delay added
-    pollSubject.delay(40000).subscribe(subscribeToNewRequestObservable);
+    pollSubject.delay(5000).subscribe(subscribeToNewRequestObservable);
 
     //Call the "subscription-function" to execute the first request
     subscribeToNewRequestObservable();
@@ -109,6 +117,8 @@ export class OrderDetailsComponent implements OnInit {
             comment: this.model.comment,
             owner: this._auth.getCurrentUser()
           });
+          this.totals.quantity += this.model.amount;
+          this.totals.price += this.model.price;
           this.model = {owner: this._auth.getCurrentUser()._id}
         },
         error => {
@@ -122,13 +132,34 @@ export class OrderDetailsComponent implements OnInit {
         for (let i = 0; i < this.order.meals.length; i++) {
           if (this.order.meals[i]._id == id) {
             this.order.meals.splice(i, 1);
+            this.totals.quantity -= this.order.meals[i].amount;
+            this.totals.price -= this.order.meals[i].price;
           }
         }
-        console.log(data)
       },
       error => {
       });
+  }
 
+  removeUser(id) {
+    this._order.removeUser(this.id, id).subscribe(
+      data => {
+        for (let i = 0; i < this.invited_users.length; i++) {
+          if (this.invited_users[i]._id == id) {
+            this.invited_users.splice(i, 1);
+          }
+        }
+        let j = this.order.meals.length;
+        while (j--){
+          if (this.order.meals[j].owner._id == id) {
+            this.totals.quantity -= this.order.meals[j].amount;
+            this.totals.price -= this.order.meals[j].price;
+            this.order.meals.splice(j, 1);
+          }
+        }
+      },
+      error => {
+      });
   }
 
   viewMenu(content) {
