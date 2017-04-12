@@ -32,6 +32,7 @@ export class AuthenticationService {
         localStorage.removeItem('currentUser');
     }
 
+
     getCurrentUser(){
       return JSON.parse(localStorage.getItem('currentUser'));
     }
