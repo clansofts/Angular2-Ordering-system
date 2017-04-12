@@ -8,7 +8,7 @@
     <div class="input-group">
       <input type="text" class="form-control" #groupName >
       <span class="input-group-btn">
-      <button class="btn btn-secondary" (click)="addGroup(groupName.value)">add group</button>
+      <button class="btn btn-secondary" (click)="addGroup(groupName)"><i class="fa  fa-plus-square"></i>  add group</button>
     </span>
     </div>
   </div>
@@ -16,8 +16,10 @@
 
     <ul class="list-group">
       <li class="list-group-item justify-content-between " *ngFor="let group of groups" [class.selected]="hers === selectedHero" (click)="onSelect(group)">
+          <i class="fa  fa-close"></i>
          {{group.name}}
-        <span class="badge badge-default badge-pill">{{group?.members.length}}</span>
+        <span class="badge badge-default badge-pill">{{group?.members.length}} </span>
+
       </li>
     </ul>
   </div>
@@ -37,9 +39,9 @@
         <div class="col-md-9  input-group">
           <input type="text" class="form-control" name="invite" [ngbTypeahead]="search"
                  [resultTemplate]="inviteTemplate"
-                 [inputFormatter]="formatter" (selectItem)="inviteItemTmp($event)"/>
+                 [inputFormatter]="formatter" (selectItem)="inviteItemTmp($event)"  #friendName/>
           <span class="input-group-btn">
-            <button class="btn btn-secondary" type="button" (click)="inviteItemHandle()">add</button>
+            <button class="btn btn-secondary" type="button" (click)="inviteItemHandle()"><i class="fa fa-user-plus"></i> add</button>
           </span>
         </div>
       </div>

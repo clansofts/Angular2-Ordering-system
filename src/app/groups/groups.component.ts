@@ -78,15 +78,36 @@ export class GroupsComponent implements OnInit {
 
   }
 
-  addGroup(name: string) {
-    console.log("add");
-    this._groups.add({ owner: this._auth.getCurrentUser()._id, name: name, members: []}).subscribe(
-      data => {
-        this.groups.push(data);
-        console.log("return group ", data)
-      }, error => {
+  ngOnChanges(){
+    console.log("change");
+  }
+  ngDoCheck(){
+    console.log("do check");
+    this.groups=this.groups;
+
+    //this.members=this.members;
+  }
+
+  addGroup(name: HTMLInputElement) {
+    var flag=0;
+    this.groups.forEach(function(group){
+      if(name.value == group.name){
+        flag=1;
       }
-    );
+    })
+
+    if(name.value!="" && flag==0 ){
+      this._groups.add({ owner: this._auth.getCurrentUser()._id, name: name.value, members: []}).subscribe(
+        data => {
+          this.groups.push(data);
+
+
+          console.log("Adding group ", data)
+        }, error => {}
+      );
+    }
+    name.value=null;
+
   }
 
   addMember(name, id): void {
@@ -95,8 +116,7 @@ export class GroupsComponent implements OnInit {
       .subscribe(
         data => {
           if (!data.error) {
-            // this.notifyAdd.emit(this.user);
-            // this.user = null;
+
           }
         },
         error => {
