@@ -39,6 +39,10 @@ export class FacebookloginComponent implements OnInit {
 
   onFacebookLoginClick() {
         FB.login();
+        FB.getLoginStatus(response => {
+            this.statusChangeCallback(response);
+            console.log(response);
+        });
     }
 
   statusChangeCallback(resp) {
@@ -72,10 +76,10 @@ export class FacebookloginComponent implements OnInit {
   ngOnInit() {
   
   	  this.authenticationService.logout();
-     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-  	FB.getLoginStatus(response => {
-            this.statusChangeCallback(response);
-        });
+          this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+
+     //
+  	// 
   	
   }
 
