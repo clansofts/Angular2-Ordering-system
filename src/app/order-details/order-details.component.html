@@ -1,9 +1,31 @@
 <h1 class="display-4 text-center"><i class="fa fa-list"></i> Order Details</h1>
 
-<div class="jumbotron">
+<template #menu_content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{order.restaurant_name}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>
+      <img class="rounded img-fluid" [src]="'http://localhost:8090/uploads/' + order.photo">
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+  </div>
+</template>
 
+<div class="jumbotron">
   <div class="row">
     <div class="col-md-7">
+      <h2>
+        <i class="fa fa-bell"></i> {{order.restaurant_name}}
+        <button class="btn btn-sm btn-secondary pull-right" (click)="viewMenu(menu_content)"><i class="fa fa-list"></i>
+          View Menu
+        </button>
+      </h2>
       <table class="table table-striped">
         <thead>
         <tr>
@@ -23,42 +45,57 @@
           <td>{{meal.price | currency:'EGP':true:'1.2-2'}}</td>
           <td>{{meal.comment}}</td>
           <td>
-            <button *ngIf="meal.owner._id == _auth.getCurrentUser()._id" (click)="removeMeal(meal._id)" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></button>
+            <button *ngIf="meal.owner._id == _auth.getCurrentUser()._id" (click)="removeMeal(meal._id)"
+                    class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></button>
           </td>
         </tr>
+        <tr class="table-active">
+          <th>Totals</th>
+          <th></th>
+          <th>{{totals.quantity}}</th>
+          <th>{{totals.price | currency:'EGP':true:'1.2-2'}}</th>
+          <th></th>
+          <th></th>
+        </tr>
         </tbody>
+
       </table>
       <form name="form" (ngSubmit)="f.form.valid && addMeal()" #f="ngForm" novalidate>
         <div class="row">
           <div class="col-4">
             <div class="form-group">
               <label class="sr-only">Item</label>
-              <input type="text" class="form-control" name="name" placeholder="Item" [(ngModel)]="model.name" #name="ngModel" required>
+              <input type="text" class="form-control" name="name" placeholder="Item" [(ngModel)]="model.name"
+                     #name="ngModel" required>
             </div>
           </div>
           <div class="col-2">
             <div class="form-group">
               <label class="sr-only">Amount</label>
-              <input type="number" class="form-control" name="amount" placeholder="Amount" value="1" [(ngModel)]="model.amount" #amount="ngModel" required>
+              <input type="number" class="form-control" name="amount" placeholder="Amount" value="1"
+                     [(ngModel)]="model.amount" #amount="ngModel" required>
             </div>
           </div>
           <div class="col-2">
             <div class="form-group">
               <label class="sr-only">Price</label>
-              <input type="number" class="form-control" name="price" placeholder="Price" [(ngModel)]="model.price" #price="ngModel" required>
+              <input type="number" class="form-control" name="price" placeholder="Price" [(ngModel)]="model.price"
+                     #price="ngModel" required>
             </div>
           </div>
           <div class="col-4">
             <div class="form-group">
               <label class="sr-only">Comment</label>
-              <input type="text" class="form-control" name="comment" placeholder="Comment" [(ngModel)]="model.comment" #comment="ngModel">
+              <input type="text" class="form-control" name="comment" placeholder="Comment" [(ngModel)]="model.comment"
+                     #comment="ngModel">
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-md-12">
             <button [disabled]="loading" class="btn btn-secondary">Add</button>
-            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            <img *ngIf="loading"
+                 src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
           </div>
         </div>
       </form>
@@ -67,8 +104,11 @@
       <h2><i class="fa fa-users"></i> Friends Invited</h2>
       <div class="row">
         <div class="col-sm-4" *ngFor="let user of invited_users">
-          <user-card [user]="user" [badge]="user.badge" [button]="{text:'Remove',class:'btn-danger'}"
+          <user-card *ngIf="order.owner._id == _auth.getCurrentUser()._id" [user]="user" [badge]="user.badge"
+                     [button]="{text:'Remove',class:'btn-danger'}"
                      (buttonClicked)="removeUser($event)"></user-card>
+          <user-card *ngIf="order.owner._id != _auth.getCurrentUser()._id" [user]="user"
+                     [badge]="user.badge"></user-card>
         </div>
       </div>
     </div>

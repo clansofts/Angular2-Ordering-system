@@ -14,6 +14,7 @@ export class FriendsComponent implements OnInit {
   friends: User[];
   user: User;
   deleteFriend: User;
+  followers:User[];
   constructor(
     private friendService: FriendsService,
     private  authService: AuthenticationService,
@@ -23,6 +24,10 @@ export class FriendsComponent implements OnInit {
 
   getFriends(): void {
     this.friendService.getFriends(this.authService.getCurrentUser()._id).then(friends => this.friends = friends);
+  }
+
+  getFollowers(): void {
+    this.friendService.getFollowers(this.authService.getCurrentUser()._id).then(followers => this.followers = followers);
   }
 
   onAddNotify(user: User): void
@@ -44,6 +49,7 @@ export class FriendsComponent implements OnInit {
 
   ngOnInit() {
     this.getFriends();
+    this.getFollowers()
   }
 
 

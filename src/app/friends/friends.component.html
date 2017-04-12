@@ -8,14 +8,14 @@
             <div class="card-group">
               <user-card *ngFor="let friend of friends" [user]="friend" [cssClass]="'card-friend-comp'" [button]="{text:'Un Follow',class:'btn-danger'}" (buttonClicked)="deleteFollower(friend)"></user-card>
             </div>
-
           </template>
         </ngb-tab>
         <ngb-tab>
           <template ngbTabTitle>Followers</template>
           <template ngbTabContent>
-
-
+            <div class="card-group">
+              <user-card *ngFor="let follower of followers" [user]="follower" [cssClass]="'card-friend-comp'" [button]="{text:'Block',class:'btn-danger'}" (buttonClicked)="deleteFollower(friend)"></user-card>
+            </div>
           </template>
         </ngb-tab>
       </ngb-tabset>
