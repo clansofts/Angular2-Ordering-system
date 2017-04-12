@@ -78,6 +78,19 @@ export class FriendsService {
       .catch(this.handleError);
   }
 
+  getFollowers(id: string): Promise<User[]>{
+    let Url = 'http://localhost:8090/follow/list/followers';
+    let params = new URLSearchParams();
+    params.set('user_id', id);
+    let options = this.jwt();
+    options.search = params;
+    console.log(params);
+    return this.http.get(Url,options)
+      .toPromise()
+      .then(response => response.json() as User[])
+      .catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
