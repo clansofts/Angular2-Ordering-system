@@ -4,7 +4,7 @@
     <span *ngIf="badge" class="card-badge badge {{badge.class}}"><i class="fa fa-{{badge.icon}}"></i> {{badge.text}}</span>
   </div>
   <div class="card-block">
-    <h5 class="card-title">{{user.name}}</h5>
+    <strong class="card-title">{{user.name}}</strong>
     <button *ngIf="button" class="btn btn-sm {{button.class}}" (click)="doClick($event)">{{button.text}}</button>
   </div>
 </div>
