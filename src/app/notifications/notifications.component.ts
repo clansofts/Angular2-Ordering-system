@@ -94,12 +94,12 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     let cssClasses;
     if(flag == 'normal') {
       cssClasses = {
-        'btn-outline-info': true,
+        'nav-link': true,
         'btn': true
       }
     } else {
       cssClasses = {
-        'btn-outline-primary': true,
+        'nav-link': true,
         'btn':true
       }
     }
