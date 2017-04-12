@@ -39,6 +39,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import {PushNotificationComponent} from "ng2-notifications/src/app/components/notification.component";
 import { OrdersComponent } from './orders/orders.component';
+import { FacebookloginComponent } from './facebooklogin/facebooklogin.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { OrdersComponent } from './orders/orders.component';
     OrderDetailsComponent,
     PushNotificationComponent,
     OrdersComponent,
+    FacebookloginComponent,
   ],
   imports: [
     BrowserModule,
