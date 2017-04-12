@@ -6,7 +6,7 @@
           <template ngbTabTitle>Followings</template>
           <template ngbTabContent>
             <div class="card-group">
-              <user-card *ngFor="let friend of friends" [user]="friend" [where]="'friendComponent'" [button]="{text:'Un Follow',class:'btn-danger'}" (buttonClicked)="deleteFollower(friend)"></user-card>
+              <user-card *ngFor="let friend of friends" [user]="friend" [cssClass]="'card-friend-comp'" [button]="{text:'Un Follow',class:'btn-danger'}" (buttonClicked)="deleteFollower(friend)"></user-card>
             </div>
 
           </template>

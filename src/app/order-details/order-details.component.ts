@@ -34,20 +34,16 @@ export class OrderDetailsComponent implements OnInit {
   ngOnInit() {
     this.route_sub = this._route.params.subscribe(params => {
       this.id = params['id'];
-      this.http_sub = this.pollData(this.id);
-      this.refreshData();
+      this.http_sub = this.pollData(this.id).subscribe(
+        data => {
+          this.setData(data)
+        },
+        error => {
+        });
     });
     this.model.owner = this._auth.getCurrentUser()._id;
   }
 
-  refreshData() {
-    this.http_sub.subscribe(
-      data => {
-        this.setData(data)
-      },
-      error => {
-      });
-  }
 
   setData(data) {
     this.order = data;
@@ -124,8 +120,12 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.route_sub.unsubscribe();
-    this.http_sub.unsubscribe();
+    if (this.route_sub) {
+      this.route_sub.unsubscribe();
+    }
+    if (this.http_sub) {
+      this.http_sub.unsubscribe();
+    }
   }
 
 }
