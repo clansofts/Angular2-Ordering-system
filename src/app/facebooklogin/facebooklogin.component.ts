@@ -14,7 +14,18 @@ declare const FB:any;
 })
 export class FacebookloginComponent implements OnInit {
 
-  constructor() { 
+  model: any = {};
+  loading = false;
+  returnUrl: string;
+ 
+
+  constructor(
+  	private notifyService: NotificationService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authenticationService: AuthenticationService,
+    private alertService: AlertService,
+  	) { 
 
   	FB.init({
             appId      : '273911746390586',
@@ -32,21 +43,40 @@ export class FacebookloginComponent implements OnInit {
 
   statusChangeCallback(resp) {
         if (resp.status === 'connected') {
+        console.log("connected walid");
          var userID = resp.authResponse.userID
+        		
+         this.loading = true;
+         
+         this.authenticationService.loginFB(userID)
+      	.subscribe(
+        data => {
+          this.router.navigate([this.returnUrl]);
+          let obj = {user_id : userID};
+          this.notifyService.sendLoginMessage(obj);
+        },
+        error => {
+          this.alertService.error(error);
+          this.loading = false;
+        });	
+
         }else if (resp.status === 'not_authorized') {
             console.log("not authorized to facebook");
         }else {
            console.log("hello callback from facbooklogin component"); 
         }
-        console.log(userID);
+       
+       
     };  
-
+ 
   ngOnInit() {
   
+  	  this.authenticationService.logout();
+     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   	FB.getLoginStatus(response => {
             this.statusChangeCallback(response);
         });
-
+  	
   }
 
 }
