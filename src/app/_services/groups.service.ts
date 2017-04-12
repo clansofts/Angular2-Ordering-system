@@ -15,7 +15,7 @@ export class GroupsService {
     return this.http.get('http://localhost:8090/groups/'+id+'/list', this.jwt()).map(response => <Group[]> response.json());;
   }
 
-  add(group: Group) {
+  add(group: any) {
     return this.http.post('http://localhost:8090/groups/add', group, this.jwt()).map((response: Response) => response.json());
   }
 
@@ -32,24 +32,34 @@ export class GroupsService {
       .map(response => response.json());
   }
 
-  listMembers(gname:string) {
-    // let Url = 'http://localhost:8090/groups/';
-    // let params = new URLSearchParams();
-    // params.set('name', "os");
-    // let options = this.jwt();
-    // options.search = params;
-    // console.log("params :",params);
-    // return this.http.get(Url,options)
-    //   .toPromise()
-    //   .then(response => response.json() as User[])
-
-    let Url = 'http://localhost:8090/groups/'+gname+'/members';
+  listMembers(id:string) {
+    let Url = 'http://localhost:8090/groups/'+id+'/members';
     //let params = new URLSearchParams();
     //params.set('name', "os");
     let options = this.jwt();
     //options.search = params;
     console.log("url :",Url);
     return this.http.get(Url,options).toPromise().then(response => <User[]> response.json())
+
+  }
+  deleteMember(gid:string,uid:string) {
+    let Url = 'http://localhost:8090/groups/'+gid+'/members/'+uid;
+    //let params = new URLSearchParams();
+    //params.set('name', "os");
+    let options = this.jwt();
+    //options.search = params;
+    console.log("url :",Url);
+    return this.http.delete(Url,options).toPromise().then(response => response.json())
+
+  }
+  deleteGroup(gid:string) {
+    let Url = 'http://localhost:8090/groups/'+gid;
+    //let params = new URLSearchParams();
+    //params.set('name', "os");
+    let options = this.jwt();
+    //options.search = params;
+    console.log("url :",Url);
+    return this.http.delete(Url,options).toPromise().then(response => response.json())
 
   }
 
