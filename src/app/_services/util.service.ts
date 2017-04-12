@@ -29,4 +29,15 @@ export class UtilService {
     return arr;
   }
 
+  removeUser(arr, value): any {
+  for (var b in arr) {
+    if (b != null && b === value._id) {
+      arr.splice(b, 1);
+      break;
+    }
+    }
+    return arr;
+  }
+
+
 }

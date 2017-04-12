@@ -4,20 +4,25 @@
 
 <div class="row">
   <div class="col-md-12">
-    <h4>My Groups</h4>
+    <h4 style="    margin-bottom: 1rem;">My Groups</h4>
+    <div *ngIf="!groupValid" class="alert alert-danger" role="alert">
+      <strong>Oh snap!</strong> This Group Already exists.
+    </div>
     <div class="input-group">
-      <input type="text" class="form-control" #groupName >
+      <input type="text" class="form-control" #groupName (keydown)="onKey()" >
       <span class="input-group-btn">
-      <button class="btn btn-secondary" (click)="addGroup(groupName.value)">add group</button>
+      <button class="btn btn-secondary" (click)="addGroup(groupName)"><i class="fa  fa-plus-square"></i>  add group</button>
     </span>
     </div>
   </div>
-  <div class="col-md-12">
+  <div   class="col-md-12">
 
     <ul class="list-group">
       <li class="list-group-item justify-content-between " *ngFor="let group of groups" [class.selected]="hers === selectedHero" (click)="onSelect(group)">
+
          {{group.name}}
-        <span class="badge badge-default badge-pill">{{group?.members.length}}</span>
+        <span class="badge badge-default badge-pill">{{group?.members.length}} </span>
+
       </li>
     </ul>
   </div>
@@ -26,34 +31,39 @@
     </div>
   <div class="col-md-9">
     <div class="row">
-      <div class="col-md-12">
-        <h4>{{currentGroup?.name}} members</h4>
+      <div *ngIf="groups?.length!=0"  class="col-md-12 groupInfo">
+        <h3 style="display: inline;" class=""><span class="badge badge-default">{{currentGroup?.name}} group</span></h3>
+        &nbsp;
+        <button  (click)="deleteGroup()"
+                class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></button>
       </div>
-      <div class="col-md-12">
+      <div *ngIf="noGroups" class="col-md-12 alert alert-danger noGroup" role="alert">
+        <strong>Oh snap!</strong> You have no groups yet
+      </div>
+
+      <div *ngIf="!noGroups" class="col-md-12">
+
         <template #inviteTemplate let-r="result" let-t="term">
           <img [src]="r.avatar ? 'http://localhost:8090/uploads/' + r.avatar : '/src/assets/images/default-avatar.jpg'" width="16">
           {{ r.name }}
         </template>
-        <div class="col-md-9  input-group">
+        <div class="input-group">
           <input type="text" class="form-control" name="invite" [ngbTypeahead]="search"
                  [resultTemplate]="inviteTemplate"
-                 [inputFormatter]="formatter" (selectItem)="inviteItemTmp($event)"/>
+                 [inputFormatter]="formatter" (selectItem)="inviteItemTmp($event)" (keydown)="memberKey()" #friendName/>
           <span class="input-group-btn">
-            <button class="btn btn-secondary" type="button" (click)="inviteItemHandle()">add</button>
+            <button class="btn btn-secondary" type="button" (click)="inviteItemHandle(friendName)"><i class="fa fa-user-plus"></i> add</button>
           </span>
         </div>
       </div>
       <div class="col-md-12">
+        <div *ngIf="!tmp.invite_valid" class="alert alert-danger" role="alert">User Already Exists.</div>
         <div class="row">
           <div class="col-md-3" *ngFor="let user of members">
               <user-card [user]="user" [button]="{text:'Remove',class:'btn-danger'}" (buttonClicked)="removeUser($event)"></user-card>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-3" *ngFor="let user of invited_users">
-              <user-card [user]="user" [button]="{text:'Remove',class:'btn-danger'}" (buttonClicked)="removeUser($event)"></user-card>
-          </div>
-        </div>
+
 
 
       </div>

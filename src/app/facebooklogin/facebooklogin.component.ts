@@ -17,7 +17,7 @@ export class FacebookloginComponent implements OnInit {
   model: any = {};
   loading = false;
   returnUrl: string;
- 
+  fbUser :any;
 
   constructor(
   	private notifyService: NotificationService,
@@ -38,16 +38,41 @@ export class FacebookloginComponent implements OnInit {
   }
 
   onFacebookLoginClick() {
-        FB.login();
+    var self = this;
+       // FB.login({ scope: 'public_profile' });
+        FB.login(function(){
+           FB.api('/me?fields=name,email,picture', function(response) {
+             console.log(response.picture.data.url);
+             let obj ={
+                        facebookID : response.id,
+                        name : response.name,
+                        email : response.email,
+                        avatar : response.picture.data.url
+                      };
+
+
+         self.authenticationService.loginFB(obj)
+        .subscribe(
+        data => {
+          self.router.navigate([self.returnUrl]);
+          self.notifyService.sendLoginMessage({user_id : obj.facebookID});
+        },
+        error => {
+          self.alertService.error(error);
+          self.loading = false;
+        });      
+
+           })
+        }, {scope: 'public_profile,email'});
         FB.getLoginStatus(response => {
             this.statusChangeCallback(response);
-            console.log(response);
+           
         });
     }
 
   statusChangeCallback(resp) {
         if (resp.status === 'connected') {
-        console.log("connected walid");
+        
          var userID = resp.authResponse.userID
         		
          this.loading = true;

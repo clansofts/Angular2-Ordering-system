@@ -1,4 +1,12 @@
-
+.input-group{
+      margin-bottom: 1rem;
+}
+.groupInfo{
+    margin-bottom: .5rem;
+}
+.noGroup{
+    margin-top: 2rem;
+}
   .selected {
     background-color: #CFD8DC !important;
     color: black;
