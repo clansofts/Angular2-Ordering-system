@@ -10,6 +10,7 @@ import {OrderService} from '../_services/orders.service';
 import {Observable} from 'rxjs';
 import {Subject} from 'rxjs/Subject';
 
+import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   templateUrl: './order-details.component.html',
@@ -25,34 +26,41 @@ export class OrderDetailsComponent implements OnInit {
   order = {meals: []};
   invited_users = [];
   joined_users = [];
+  totals = {
+    price: 0,
+    quantity: 0
+  };
 
   constructor(private _route: ActivatedRoute,
               private _order: OrderService,
-              private _auth: AuthenticationService,) {
+              private _auth: AuthenticationService,
+              private _modal: NgbModal) {
   }
 
   ngOnInit() {
     this.route_sub = this._route.params.subscribe(params => {
       this.id = params['id'];
-      this.http_sub = this.pollData(this.id);
-      this.refreshData();
+      this.http_sub = this.pollData(this.id).subscribe(
+        data => {
+          this.setData(data)
+        },
+        error => {
+        });
     });
     this.model.owner = this._auth.getCurrentUser()._id;
   }
 
-  refreshData() {
-    this.http_sub.subscribe(
-      data => {
-        this.setData(data)
-      },
-      error => {
-      });
-  }
 
   setData(data) {
     this.order = data;
-    console.log(data);
 
+    this.joined_users = [];
+    for (let i = 0; i < data.meals.length; i++) {
+      this.joined_users.push(data.meals[i].owner._id);
+      this.totals.quantity += data.meals[i].amount;
+      this.totals.price += data.meals[i].price;
+    }
+    console.log(this.joined_users);
     for (let i = 0; i < data.invited.length; i++) {
       if (this.joined_users.indexOf(data.invited[i]._id) != -1) {
         data.invited[i].badge = {text: "Joined", "class": "badge-success", icon: "check"};
@@ -79,7 +87,7 @@ export class OrderDetailsComponent implements OnInit {
     };
 
     //Subscribe our "subscription-function" to custom subject (observable) with 4000ms of delay added
-    pollSubject.delay(4000).subscribe(subscribeToNewRequestObservable);
+    pollSubject.delay(40000).subscribe(subscribeToNewRequestObservable);
 
     //Call the "subscription-function" to execute the first request
     subscribeToNewRequestObservable();
@@ -101,15 +109,15 @@ export class OrderDetailsComponent implements OnInit {
             comment: this.model.comment,
             owner: this._auth.getCurrentUser()
           });
-          this.model = {owner : this._auth.getCurrentUser()._id}
+          this.model = {owner: this._auth.getCurrentUser()._id}
         },
         error => {
           this.loading = false;
         });
   }
 
-  removeMeal(id){
-    this._order.removeMeal(this.id,id).subscribe(
+  removeMeal(id) {
+    this._order.removeMeal(this.id, id).subscribe(
       data => {
         for (let i = 0; i < this.order.meals.length; i++) {
           if (this.order.meals[i]._id == id) {
@@ -123,9 +131,17 @@ export class OrderDetailsComponent implements OnInit {
 
   }
 
+  viewMenu(content) {
+    this._modal.open(content);
+  }
+
   ngOnDestroy() {
-    this.route_sub.unsubscribe();
-    this.http_sub.unsubscribe();
+    if (this.route_sub) {
+      this.route_sub.unsubscribe();
+    }
+    if (this.http_sub) {
+      this.http_sub.unsubscribe();
+    }
   }
 
 }

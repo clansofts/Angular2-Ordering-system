@@ -95,12 +95,10 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     if(flag == 'normal') {
       cssClasses = {
         'nav-link': true,
-        'btn': true
       }
     } else {
       cssClasses = {
         'nav-link': true,
-        'btn':true
       }
     }
     return cssClasses;
