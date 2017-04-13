@@ -42,6 +42,36 @@ export class FriendsService {
   }
 
 
+  blockFriend(query): Promise<any>{
+    let Url = 'http://localhost:8090/follow/block';
+    let params = new URLSearchParams();
+    params.set('from', query.reqFrom);
+    params.set('to', query.reqTo);
+    let options = this.jwt();
+    options.search = params;
+    return this.http.get(Url,options)
+      .toPromise()
+      .then(response => response.json() as User)
+      .catch(this.handleError);
+  }
+
+  unBlockFriend(query): Promise<any>{
+    let Url = 'http://localhost:8090/follow/unblock';
+    let params = new URLSearchParams();
+    params.set('from', query.reqFrom);
+    params.set('to', query.reqTo);
+    let options = this.jwt();
+    options.search = params;
+    return this.http.get(Url,options)
+      .toPromise()
+      .then((response) => {
+        this.verifyDelete = true;
+        response.json() as User;
+      })
+      .catch(this.handleError);
+  }
+
+
 
 
   search(data) {
@@ -52,13 +82,12 @@ export class FriendsService {
     let searchUrl = 'http://localhost:8090/users/search';
 
     let params = new URLSearchParams();
-    params.set('user_id', data.user_id);
+    params.set('user_id', data.from);
     params.set('field', data.field);
     params.set('q', data.q);
-
     let options = this.jwt();
     options.search = params;
-
+    console.log(data);
     return this.http
       .get(searchUrl, options)
       .map(response => <string[]> response.json());
@@ -67,6 +96,20 @@ export class FriendsService {
 
   getFriends(id: string): Promise<User[]>{
     let Url = 'http://localhost:8090/follow/list';
+    let params = new URLSearchParams();
+    params.set('user_id', id);
+    let options = this.jwt();
+    options.search = params;
+    console.log(params);
+    return this.http.get(Url,options)
+      .toPromise()
+      .then(response => response.json() as User[])
+      .catch(this.handleError);
+  }
+
+
+  getBlocked(id: string): Promise<User[]>{
+    let Url = 'http://localhost:8090/follow/list/block';
     let params = new URLSearchParams();
     params.set('user_id', id);
     let options = this.jwt();

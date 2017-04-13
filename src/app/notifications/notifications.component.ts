@@ -5,6 +5,7 @@ import {AuthenticationService} from "../_services/authentication.service";
 import {Subject} from "rxjs";
 import {PushNotificationComponent} from "ng2-notifications/src/app/components/notification.component";
 import {Router} from "@angular/router";
+import {User} from "../_models/user";
 
 @Component({
   entryComponents: [PushNotificationComponent],
@@ -14,7 +15,7 @@ import {Router} from "@angular/router";
 
 })
 export class NotificationsComponent implements OnInit, OnDestroy {
-  messages = [];
+  messages : any= [{}];
   connection;
   message;
   alert;
@@ -25,6 +26,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   response;
   countNotification=0;
   notificationReaded;
+  followerObj: User;
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -47,8 +49,15 @@ export class NotificationsComponent implements OnInit, OnDestroy {
       this.notificationMessage['title'] = message['notification']['name'];
       this.notificationMessage['body'] = message['notification']['body'];
       this.notificationMessage['icon'] = 'http://localhost:8090/uploads/'+message['notification']['avatar'];
+      this.notifyService.setFollower(message['user']);
       this.pushNotification.show();
-      this.messages.push(message['notification']['body']);
+      console.log(message);
+      if (message.type == "friend")
+      {
+        let link = "friends";
+        this.messages.push({body:message.notification.body,link:link});
+      }
+
     });
     this.getNotiFromDb();
   }
@@ -63,7 +72,11 @@ export class NotificationsComponent implements OnInit, OnDestroy {
           this.countNotification = 0;
           for (var i = 0; i < message['notifications'].length; i++) {
             this.countNotification++;
-            this.messages.push(message['notifications'][i]);
+            if (message['notifications'][i].type == "friend")
+            {
+              let link = "friends";
+              this.messages.push({body:message['notifications'][i].body,link:link});
+            }
           }
           if (this.notificationReaded)
           {
@@ -77,7 +90,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   }
 
 
-  myFunction(){
+  pushNotiAction(){
     this.router.navigateByUrl("/");
   }
 
@@ -117,11 +130,5 @@ export class NotificationsComponent implements OnInit, OnDestroy {
      }
    });
   }
-
-
-  // sendMessage(){
-  //   this.notifyService.sendMessage(this.message);
-  //   this.message = '';
-  // }
 
 }
