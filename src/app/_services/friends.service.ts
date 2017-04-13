@@ -82,13 +82,15 @@ export class FriendsService {
     let searchUrl = 'http://localhost:8090/users/search';
 
     let params = new URLSearchParams();
-    params.set('user_id', data.user_id);
+    params.set('user_id', data.from);
     params.set('field', data.field);
     params.set('q', data.q);
 
+
+
     let options = this.jwt();
     options.search = params;
-
+    console.log(data);
     return this.http
       .get(searchUrl, options)
       .map(response => <string[]> response.json());
