@@ -29,7 +29,7 @@
           <a class="nav-link" [routerLink]="['/groups']">Groups</a>
         </li>
         <li *ngIf="authenticationService.isLoggedIn()" class="nav-item">
-          <app-notifications></app-notifications>
+          <app-notifications ></app-notifications>
         </li>
         <li *ngIf="authenticationService.isLoggedIn()" class="nav-item">
           <a (click)="authenticationService.logout()" href="#" class="nav-link">Logout</a>

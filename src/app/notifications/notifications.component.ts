@@ -5,6 +5,7 @@ import {AuthenticationService} from "../_services/authentication.service";
 import {Subject} from "rxjs";
 import {PushNotificationComponent} from "ng2-notifications/src/app/components/notification.component";
 import {Router} from "@angular/router";
+import {User} from "../_models/user";
 
 @Component({
   entryComponents: [PushNotificationComponent],
@@ -25,6 +26,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   response;
   countNotification=0;
   notificationReaded;
+  followerObj: User;
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -47,6 +49,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
       this.notificationMessage['title'] = message['notification']['name'];
       this.notificationMessage['body'] = message['notification']['body'];
       this.notificationMessage['icon'] = 'http://localhost:8090/uploads/'+message['notification']['avatar'];
+      this.notifyService.setFollower(message['user']);
       this.pushNotification.show();
       this.messages.push(message['notification']['body']);
     });
@@ -117,11 +120,5 @@ export class NotificationsComponent implements OnInit, OnDestroy {
      }
    });
   }
-
-
-  // sendMessage(){
-  //   this.notifyService.sendMessage(this.message);
-  //   this.message = '';
-  // }
 
 }

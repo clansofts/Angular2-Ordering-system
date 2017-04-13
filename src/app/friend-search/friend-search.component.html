@@ -5,6 +5,8 @@
   </span>
 </div>
 <div *ngIf="user">
-  <user-card [user]="user" [button]="{text:'Follow',class:'btn-success'}" (buttonClicked)="makeFreind()" *ngIf="!following"></user-card>
-  <user-card [user]="user" [button]="{text:'Un Follow',class:'btn-danger'}" (buttonClicked)="deleteFollower()" *ngIf="following"></user-card>
+  <user-card [user]="user" [button]="{text:'Follow',class:'btn-success'}" (buttonClicked)="makeFreind()" *ngIf="!following && !blocked"></user-card>
+  <user-card [user]="user" [button]="{text:'Un Follow',class:'btn-danger'}" (buttonClicked)="deleteFollower()" *ngIf="following && !blocked"></user-card>
+  <user-card [user]="user" [button]="{text:'Un Block',class:'btn-success'}" (buttonClicked)="unBlockFollower()" *ngIf="!following && blocked"></user-card>
+
 </div>

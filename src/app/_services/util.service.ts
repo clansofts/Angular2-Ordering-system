@@ -9,8 +9,10 @@ export class UtilService {
   constructor(private http: Http,) { }
 
   objectPropInArray(list, prop, val): boolean  {
+    console.log(list.length);
   if (list.length > 0 ) {
     for (var i in list) {
+      console.log(list[i][prop]);
       if (list[i][prop] === val) {
         return true;
         }

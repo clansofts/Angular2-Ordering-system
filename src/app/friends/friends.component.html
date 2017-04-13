@@ -14,14 +14,22 @@
           <template ngbTabTitle>Followers</template>
           <template ngbTabContent>
             <div class="card-group">
-              <user-card *ngFor="let follower of followers" [user]="follower" [cssClass]="'card-friend-comp'" [button]="{text:'Block',class:'btn-danger'}" (buttonClicked)="deleteFollower(friend)"></user-card>
+              <user-card *ngFor="let follower of followers" [user]="follower" [cssClass]="'card-friend-comp'" [button]="{text:'Block',class:'btn-danger'}" (buttonClicked)="blockFollower(follower)"></user-card>
+            </div>
+          </template>
+        </ngb-tab>
+        <ngb-tab>
+          <template ngbTabTitle>Block List</template>
+          <template ngbTabContent>
+            <div class="card-group">
+              <user-card *ngFor="let blocked of blockList" [user]="blocked" [cssClass]="'card-friend-comp'" [button]="{text:'Un Block',class:'btn-success'}" (buttonClicked)="unBlockFollower(blocked)"></user-card>
             </div>
           </template>
         </ngb-tab>
       </ngb-tabset>
     </div>
     <div class="col-3">
-      <app-friend-search [friends]="friends" (notifyDelete)="onDeleteNotify($event)" (notifyAdd)='onAddNotify($event)'></app-friend-search>
+      <app-friend-search [friends]="friends" [blockList]="blockList" (notifyUnBlock)="unBlockFollower($event)" (notifyDelete)="onDeleteNotify($event)" (notifyAdd)='onAddNotify($event)'></app-friend-search>
     </div>
   </div>
 </div>

@@ -21,10 +21,13 @@ export class FriendSearchComponent implements OnInit {
   private query;
   user: User;
   following: boolean = false;
+  blocked: boolean = false;
   deleteFriend: User;
   @Input() friends: User[];
+  @Input() blockList: User[];
   @Output() notifyAdd: EventEmitter<User> = new EventEmitter<User>();
   @Output() notifyDelete: EventEmitter<User> = new EventEmitter<User>();
+  @Output() notifyUnBlock: EventEmitter<User> = new EventEmitter<User>();
   constructor(
     private friendService: FriendsService,
     private authService: AuthenticationService,
@@ -40,9 +43,15 @@ export class FriendSearchComponent implements OnInit {
             if(typeof this.user != 'undefined' && this.utilSerivse.objectPropInArray(this.friends,'_id',this.user._id))
             {
               this.following = true;
-            }else {
+            }else if(typeof this.user != 'undefined' && this.utilSerivse.objectPropInArray(this.blockList,'_id',this.user._id))
+            {
+              this.blocked = true;
+            }
+            else {
+              this.blocked = false;
               this.following = false;
             }
+
           },
           error => {
             console.log(error)
@@ -70,10 +79,14 @@ export class FriendSearchComponent implements OnInit {
     this.friendService.deleteFriend(query)
       .then((deleteFriend) => {
         this.deleteFriend = deleteFriend;
-        console.log(this.user);
         this.notifyDelete.emit(this.user);
         this.user = null;
     });
+  }
+
+  unBlockFollower(): any{
+    this.notifyUnBlock.emit(this.user);
+    this.user = null;
   }
 
   ngOnInit() {

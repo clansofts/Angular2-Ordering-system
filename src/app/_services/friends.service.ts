@@ -42,6 +42,36 @@ export class FriendsService {
   }
 
 
+  blockFriend(query): Promise<any>{
+    let Url = 'http://localhost:8090/follow/block';
+    let params = new URLSearchParams();
+    params.set('from', query.reqFrom);
+    params.set('to', query.reqTo);
+    let options = this.jwt();
+    options.search = params;
+    return this.http.get(Url,options)
+      .toPromise()
+      .then(response => response.json() as User)
+      .catch(this.handleError);
+  }
+
+  unBlockFriend(query): Promise<any>{
+    let Url = 'http://localhost:8090/follow/unblock';
+    let params = new URLSearchParams();
+    params.set('from', query.reqFrom);
+    params.set('to', query.reqTo);
+    let options = this.jwt();
+    options.search = params;
+    return this.http.get(Url,options)
+      .toPromise()
+      .then((response) => {
+        this.verifyDelete = true;
+        response.json() as User;
+      })
+      .catch(this.handleError);
+  }
+
+
 
 
   search(data) {
@@ -67,6 +97,20 @@ export class FriendsService {
 
   getFriends(id: string): Promise<User[]>{
     let Url = 'http://localhost:8090/follow/list';
+    let params = new URLSearchParams();
+    params.set('user_id', id);
+    let options = this.jwt();
+    options.search = params;
+    console.log(params);
+    return this.http.get(Url,options)
+      .toPromise()
+      .then(response => response.json() as User[])
+      .catch(this.handleError);
+  }
+
+
+  getBlocked(id: string): Promise<User[]>{
+    let Url = 'http://localhost:8090/follow/list/block';
     let params = new URLSearchParams();
     params.set('user_id', id);
     let options = this.jwt();
