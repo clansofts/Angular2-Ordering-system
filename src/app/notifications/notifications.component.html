@@ -12,7 +12,10 @@
     </a>
     <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
       <ul class="list-group">
-        <li *ngFor="let message of messages">{{message}}</li>
+        <li style="list-style: none;" *ngFor="let message of messages" >
+          <a class="dropdown-item" href="#">{{message}}</a>
+          <div class="dropdown-divider"></div>
+        </li>
       </ul>
     </div>
   </div>
