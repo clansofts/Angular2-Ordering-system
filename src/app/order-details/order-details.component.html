@@ -60,7 +60,7 @@
         </tbody>
 
       </table>
-      <form name="form" (ngSubmit)="f.form.valid && addMeal()" #f="ngForm" novalidate>
+      <form *ngIf="addPermession" name="form" (ngSubmit)="f.form.valid && addMeal()" #f="ngForm" novalidate>
         <div class="row">
           <div class="col-4">
             <div class="form-group">
@@ -106,7 +106,7 @@
         <div class="col-sm-4" *ngFor="let user of invited_users">
           <user-card *ngIf="order.owner._id == _auth.getCurrentUser()._id" [user]="user" [badge]="user.badge"
                      [button]="{text:'Remove',class:'btn-danger'}"
-                     (buttonClicked)="removeUser($event)"></user-card>
+                     (buttonClicked)="removeUser(user._id)"></user-card>
           <user-card *ngIf="order.owner._id != _auth.getCurrentUser()._id" [user]="user"
                      [badge]="user.badge"></user-card>
         </div>

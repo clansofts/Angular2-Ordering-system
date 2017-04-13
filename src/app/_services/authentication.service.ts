@@ -23,8 +23,8 @@ export class AuthenticationService {
             });
     }
 
-    loginFB(userID : number){
-        return this.http.post('http://localhost:8090/auth/facebook',{ userID: userID })
+    loginFB(fb_user : any){
+        return this.http.post('http://localhost:8090/auth/facebook',fb_user)
           .map((response: Response) => {
             let user = response.json();
             if (user && user.token){
