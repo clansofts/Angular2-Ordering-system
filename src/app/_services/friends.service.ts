@@ -85,9 +85,6 @@ export class FriendsService {
     params.set('user_id', data.from);
     params.set('field', data.field);
     params.set('q', data.q);
-
-
-
     let options = this.jwt();
     options.search = params;
     console.log(data);

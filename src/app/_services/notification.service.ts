@@ -44,7 +44,7 @@ export class NotificationService {
   }
 
   getMessages() {
-    let observable = new Observable(observer => {
+    let observable :any = new Observable(observer => {
       this.socket.on('message', (data) => {
         this.subject.next(data);
         console.log(data);
@@ -53,7 +53,7 @@ export class NotificationService {
       return () => {
         this.socket.disconnect();
       };
-    })
+    });
     return observable;
   }
 

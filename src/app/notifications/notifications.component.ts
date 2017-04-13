@@ -15,7 +15,7 @@ import {User} from "../_models/user";
 
 })
 export class NotificationsComponent implements OnInit, OnDestroy {
-  messages = [];
+  messages : any= [{}];
   connection;
   message;
   alert;
@@ -51,7 +51,13 @@ export class NotificationsComponent implements OnInit, OnDestroy {
       this.notificationMessage['icon'] = 'http://localhost:8090/uploads/'+message['notification']['avatar'];
       this.notifyService.setFollower(message['user']);
       this.pushNotification.show();
-      this.messages.push(message['notification']['body']);
+      console.log(message);
+      if (message.type == "friend")
+      {
+        let link = "friends";
+        this.messages.push({body:message.notification.body,link:link});
+      }
+
     });
     this.getNotiFromDb();
   }
@@ -66,7 +72,11 @@ export class NotificationsComponent implements OnInit, OnDestroy {
           this.countNotification = 0;
           for (var i = 0; i < message['notifications'].length; i++) {
             this.countNotification++;
-            this.messages.push(message['notifications'][i]);
+            if (message['notifications'][i].type == "friend")
+            {
+              let link = "friends";
+              this.messages.push({body:message['notifications'][i].body,link:link});
+            }
           }
           if (this.notificationReaded)
           {
@@ -80,7 +90,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   }
 
 
-  myFunction(){
+  pushNotiAction(){
     this.router.navigateByUrl("/");
   }
 
