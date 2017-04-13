@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   friendsIds:string[];
   myOrders:Order[];
   friendsOrders:Order[];
+  islogged:boolean=false;
 
   constructor(private homeService: HomeService,private uerService: AuthenticationService,private friendService: FriendsService) {
     this.currentUser=uerService.getCurrentUser();
@@ -29,6 +30,7 @@ export class HomeComponent implements OnInit {
     //console.log(this.homeService.getMyOrders(this.currentUser._id));
     //get my orders
     if (this.currentUser) {
+      this.islogged=true
       this.homeService.getMyOrders(this.currentUser._id).then((orders) => {//console.log("result :",orders);
         this.myOrders = orders;
         console.log("my orders:", this.myOrders);

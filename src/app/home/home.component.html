@@ -1,9 +1,10 @@
-<div>
-  home works!
-
+<div *ngIf="!islogged" class="container">
+<div class="col-md-8 pull-center">
+  <img src="../assets/images/yalaNotlop.png" alt="" style="width: 100%;">
+</div>
 </div>
 
-<div class="row">
+<div *ngIf="islogged" class="row">
   <div class="col-md-6">
     <div class="row">
       <div class="col-md-12">
