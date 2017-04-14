@@ -6,6 +6,7 @@ import {URLSearchParams, Jsonp} from '@angular/http';
 
 import {User} from '../_models/user';
 import {Observable} from "rxjs";
+import {AppSettings} from '../app.settings';
 
 @Injectable()
 export class UserService {
@@ -14,24 +15,8 @@ export class UserService {
   constructor(private http: Http, private _jsonp: Jsonp) {
   }
 
-  getAll() {
-    return this.http.get('/api/users', this.jwt()).map((response: Response) => response.json());
-  }
-
-  getById(id: number) {
-    return this.http.get('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
-  }
-
   create(user: User) {
-    return this.http.post('http://localhost:8090/auth/register', user, this.jwt()).map((response: Response) => response.json());
-  }
-
-  update(user: User) {
-    return this.http.put('/api/users/' + user._id, user, this.jwt()).map((response: Response) => response.json());
-  }
-
-  delete(id: number) {
-    return this.http.delete('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
+    return this.http.post(AppSettings.API_ENDPOINT + '/auth/register', user, this.jwt()).map((response: Response) => response.json());
   }
 
   search(data) {
@@ -39,7 +24,7 @@ export class UserService {
       return Observable.of([]);
     }
 
-    let searchUrl = 'http://localhost:8090/users/search';
+    let searchUrl = AppSettings.API_ENDPOINT + '/users/search';
 
     let params = new URLSearchParams();
     params.set('field', data.field);

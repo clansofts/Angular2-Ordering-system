@@ -4,6 +4,9 @@ import {URLSearchParams, Http, RequestOptions, Headers} from "@angular/http";
 import 'rxjs/add/operator/toPromise';
 import {Observable} from "rxjs";
 
+import {AppSettings} from '../app.settings';
+
+
 @Injectable()
 export class FriendsService {
   verifyDelete: boolean = false;
@@ -13,7 +16,7 @@ export class FriendsService {
 
   makeFriendShip(query) {
 
-    let searchUrl = 'http://localhost:8090/follow/add';
+    let searchUrl = AppSettings.API_ENDPOINT + '/follow/add';
     let params = new URLSearchParams();
     params.set('from', query.reqFrom);
     params.set('to', query.reqTo);
@@ -26,7 +29,7 @@ export class FriendsService {
 
 
   deleteFriend(query): Promise<any>{
-    let Url = 'http://localhost:8090/follow/delete';
+    let Url = AppSettings.API_ENDPOINT + '/follow/delete';
     let params = new URLSearchParams();
     params.set('from', query.reqFrom);
     params.set('to', query.reqTo);
@@ -43,7 +46,7 @@ export class FriendsService {
 
 
   blockFriend(query): Promise<any>{
-    let Url = 'http://localhost:8090/follow/block';
+    let Url = AppSettings.API_ENDPOINT + '/follow/block';
     let params = new URLSearchParams();
     params.set('from', query.reqFrom);
     params.set('to', query.reqTo);
@@ -56,7 +59,7 @@ export class FriendsService {
   }
 
   unBlockFriend(query): Promise<any>{
-    let Url = 'http://localhost:8090/follow/unblock';
+    let Url = AppSettings.API_ENDPOINT + '/follow/unblock';
     let params = new URLSearchParams();
     params.set('from', query.reqFrom);
     params.set('to', query.reqTo);
@@ -79,7 +82,7 @@ export class FriendsService {
       return Observable.of([]);
     }
 
-    let searchUrl = 'http://localhost:8090/users/search';
+    let searchUrl = AppSettings.API_ENDPOINT + '/users/search';
 
     let params = new URLSearchParams();
     params.set('user_id', data.from);
@@ -95,7 +98,7 @@ export class FriendsService {
 
 
   getFriends(id: string): Promise<User[]>{
-    let Url = 'http://localhost:8090/follow/list';
+    let Url = AppSettings.API_ENDPOINT + '/follow/list';
     let params = new URLSearchParams();
     params.set('user_id', id);
     let options = this.jwt();
@@ -109,7 +112,7 @@ export class FriendsService {
 
 
   getBlocked(id: string): Promise<User[]>{
-    let Url = 'http://localhost:8090/follow/list/block';
+    let Url = AppSettings.API_ENDPOINT + '/follow/list/block';
     let params = new URLSearchParams();
     params.set('user_id', id);
     let options = this.jwt();
@@ -122,7 +125,7 @@ export class FriendsService {
   }
 
   getFollowers(id: string): Promise<User[]>{
-    let Url = 'http://localhost:8090/follow/list/followers';
+    let Url = AppSettings.API_ENDPOINT + '/follow/list/followers';
     let params = new URLSearchParams();
     params.set('user_id', id);
     let options = this.jwt();

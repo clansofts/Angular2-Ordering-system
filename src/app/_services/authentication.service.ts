@@ -6,6 +6,9 @@ import 'rxjs/add/operator/map'
 import { User } from '../_models/user';
 import {NotificationService} from "./notification.service";
 
+import {AppSettings} from '../app.settings';
+
+
 @Injectable()
 export class AuthenticationService {
 
@@ -14,7 +17,7 @@ export class AuthenticationService {
   constructor(private http: Http,private  notifyService: NotificationService) { }
 
     login(email: string, password: string) {
-        return this.http.post('http://localhost:8090/auth/login', { email: email, password: password })
+        return this.http.post(AppSettings.API_ENDPOINT + '/auth/login', { email: email, password: password })
             .map((response: Response) => {
                 let user = response.json();
                 if (user && user.token) {
@@ -24,7 +27,7 @@ export class AuthenticationService {
     }
 
     loginFB(fb_user : any){
-        return this.http.post('http://localhost:8090/auth/facebook',fb_user)
+        return this.http.post(AppSettings.API_ENDPOINT + '/auth/facebook',fb_user)
           .map((response: Response) => {
             let user = response.json();
             if (user && user.token){
@@ -50,6 +53,18 @@ export class AuthenticationService {
 
     isLoggedIn(){
       return (this.getCurrentUser()) ? true : false;
+    }
+
+    userAvatarSrc(user){
+      if (user.avatar) {
+        if (user.facebookID) {
+          return user.avatar
+        }else{
+          return AppSettings.API_ENDPOINT + '/uploads/' + user.avatar;
+        }
+      }else{
+        return '/src/assets/images/default-avatar.jpg';
+      }
     }
 
 }

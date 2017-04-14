@@ -4,4 +4,5 @@
   avatar: string;
   email: string;
   online: boolean;
+  facebookID: string;
 }
