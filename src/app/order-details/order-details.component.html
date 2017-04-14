@@ -45,7 +45,7 @@
           <td>{{meal.price | currency:'EGP':true:'1.2-2'}}</td>
           <td>{{meal.comment}}</td>
           <td>
-            <button *ngIf="meal.owner._id == _auth.getCurrentUser()._id" (click)="removeMeal(meal._id)"
+            <button *ngIf="meal.owner._id == _auth.getCurrentUser()._id || order.owner._id == _auth.getCurrentUser()._id" (click)="removeMeal(meal._id)"
                     class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></button>
           </td>
         </tr>

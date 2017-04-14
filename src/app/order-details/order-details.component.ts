@@ -62,12 +62,10 @@ export class OrderDetailsComponent implements OnInit {
     }
 
     for (let i = 0; i < data.invited.length; i++) {
-      if (data.invited.indexOf(this._auth.getCurrentUser()._id) != -1) {
-        console.log("invited")
+      if (this._auth.getCurrentUser()._id == data.invited[i]._id) {
         this.addPermession = true;
       }
       if (this._auth.getCurrentUser()._id == data.owner._id) {
-        console.log("owner")
         this.addPermession = true;
       }
       if (this.joined_users.indexOf(data.invited[i]._id) != -1) {
