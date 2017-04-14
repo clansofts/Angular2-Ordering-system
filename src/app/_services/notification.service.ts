@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import * as io from 'socket.io-client';
 import {URLSearchParams, Headers, RequestOptions, Http} from "@angular/http";
+import {User} from "../_models/user";
 
 @Injectable()
 export class NotificationService {
 
   private url = 'http://localhost:8090';
   private socket;
+  private follower: User;
+  private subject: Subject<User> = new Subject<User>();
+
 
   constructor(private http: Http) {
     this.socket = io(this.url);
@@ -15,6 +19,22 @@ export class NotificationService {
 
   sendMessage(message){
     this.socket.emit('add-message', message);
+  }
+
+  toMyFollowers(obj){
+    this.socket.emit('toMyFollowers',obj);
+  }
+
+
+  setFollower(user: User): void {
+    this.follower = user;
+    console.log("from serv");
+    console.log(user);
+    this.subject.next(user);
+  }
+
+  getFollower(): Observable<User> {
+    return this.subject.asObservable();
   }
 
   sendLoginMessage(obj){
@@ -26,16 +46,36 @@ export class NotificationService {
     this.socket.emit('logout-message', obj);
   }
 
+  getNewOrders() {
+    console.log("get new orders");
+    let observable = new Observable(
+                     observer =>
+                           {
+                              //console.log(this.socket);
+                               this.socket.on('newOrder', (data) =>
+                                         {
+                                           console.log("notify data ",data)
+                                           observer.next(data);
+                                         });
+                               return () =>
+                                         {
+                                           this.socket.disconnect();
+                                         };
+                             })
+       return observable;
+     }
+
   getMessages() {
-    let observable = new Observable(observer => {
+    let observable :any = new Observable(observer => {
       this.socket.on('message', (data) => {
+        this.subject.next(data);
         console.log(data);
         observer.next(data);
       });
       return () => {
         this.socket.disconnect();
       };
-    })
+    });
     return observable;
   }
 

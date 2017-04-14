@@ -1,4 +1,4 @@
-<div [ngClass]="getCssClasses()">
+<div *ngIf="user.name" [ngClass]="getCssClasses()">
   <div class="card-img-holder">
     <img class="card-img-top img-fluid avatar" [src]="user.avatar ? 'http://localhost:8090/uploads/' + user.avatar : '/src/assets/images/default-avatar.jpg'" alt="{{user.name}}">
     <span *ngIf="badge" class="card-badge badge {{badge.class}}"><i class="fa fa-{{badge.icon}}"></i> {{badge.text}}</span>

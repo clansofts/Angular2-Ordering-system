@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-
+import {User} from "../_models/user";
 import {AlertService} from '../_services/alert.service';
 import {AuthenticationService} from '../_services/authentication.service';
 import {UserService} from '../_services/user.service';
 import {OrderService} from '../_services/orders.service';
-
+import {NotificationService} from "../_services/notification.service";//by seif
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/map';
@@ -33,6 +33,7 @@ export class AddOrderComponent implements OnInit {
   invite_by_values = ["Friends", "Groups"];
   invite_by;
   menu_photo: any = {valid: true, error: ""};
+  myFollowers:any=[]
 
   public uploader: FileUploader = new FileUploader({url: UPLOAD_URL, itemAlias: 'photo'});
 
@@ -42,6 +43,7 @@ export class AddOrderComponent implements OnInit {
               private _alert: AlertService,
               private _friend: FriendsService,
               private _groups: GroupsService,
+              private notiServe: NotificationService,
               private _order: OrderService) {
   }
 
@@ -60,6 +62,15 @@ export class AddOrderComponent implements OnInit {
         this.model.photo = jsonResponse.file;
       }
     };
+    //get my followers & send notification to them
+    this._friend.getFollowers(this._auth.getCurrentUser()._id).then((followers)=>{this.myFollowers=followers;
+                                                                                  console.log("my followers :",this.myFollowers);
+                                                                                  var Ids = [];
+                                                                                  this.myFollowers.forEach(function(follower){
+                                                                                    Ids.push(follower._id)
+                                                                                  })
+                                                                                  this.notiServe.toMyFollowers({ids:Ids.join()});
+                                                                                })
   }
 
   search = (text$: Observable<string>) =>
@@ -127,6 +138,9 @@ export class AddOrderComponent implements OnInit {
     this._order.create(this.model)
       .subscribe(
         data => {
+          //by seif: push notification to others
+
+          //
           this._alert.success('Published successful', true);
           this._router.navigate(['/order-details',data._id]);
         },
