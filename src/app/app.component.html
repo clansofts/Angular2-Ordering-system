@@ -31,14 +31,14 @@
 
       </ul>
 
-      <ul class="navbar-nav">
-        <li *ngIf="_auth.isLoggedIn()" class="nav-item">
+      <ul class="navbar-nav" *ngIf="_auth.isLoggedIn()">
+        <li class="nav-item">
           <app-notifications></app-notifications>
         </li>
 
-        <li *ngIf="_auth.isLoggedIn()" ngbDropdown class="nav-item">
-          <a href="#" disabled class="nav-link" ngbDropdownToggle>
-            <img class="img-fluid navbar-avatar rounded-circle" [src]="_auth.getCurrentUser().avatar ? 'http://localhost:8090/uploads/' + _auth.getCurrentUser().avatar : '/src/assets/images/default-avatar.jpg'">
+        <li ngbDropdown class="nav-item">
+          <a href="#" class="nav-link" ngbDropdownToggle>
+            <img class="img-fluid navbar-avatar rounded-circle" [src]="_auth.userAvatarSrc(_auth.getCurrentUser())">
             {{_auth.getCurrentUser().name}}
           </a>
           <div class="dropdown-menu">
@@ -46,7 +46,6 @@
               Logout
             </a>
           </div>
-
         </li>
       </ul>
 
