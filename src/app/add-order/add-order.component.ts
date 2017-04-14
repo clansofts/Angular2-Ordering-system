@@ -12,8 +12,10 @@ import 'rxjs/add/operator/map';
 import {FriendsService} from "../_services/friends.service";
 import {GroupsService} from "../_services/groups.service";
 
+import {AppSettings} from '../app.settings';
+
 import {FileUploader} from 'ng2-file-upload/ng2-file-upload';
-const UPLOAD_URL = 'http://localhost:8090/upload/photo';
+const UPLOAD_URL = AppSettings.API_ENDPOINT + '/upload/photo';
 
 @Component({
   templateUrl: './add-order.component.html',

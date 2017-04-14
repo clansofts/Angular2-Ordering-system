@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {AppSettings} from '../app.settings';
+import {AuthenticationService} from '../_services/authentication.service';
 
 @Component({
   selector: 'user-card',
@@ -12,7 +14,7 @@ export class UserCardComponent implements OnInit {
   @Input() cssClass;
   @Output() buttonClicked = new EventEmitter();
 
-  constructor() { }
+  constructor(private _auth: AuthenticationService) { }
 
   ngOnInit() {
   }

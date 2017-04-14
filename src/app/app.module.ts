@@ -41,8 +41,6 @@ import {PushNotificationComponent} from "ng2-notifications/src/app/components/no
 import { OrdersComponent } from './orders/orders.component';
 import { FacebookloginComponent } from './facebooklogin/facebooklogin.component';
 
-const serverURL = 'http://localhost:8090';
-
 @NgModule({
   declarations: [
     AppComponent,
