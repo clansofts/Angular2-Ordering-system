@@ -11,6 +11,7 @@ import {Observable} from 'rxjs';
 import {Subject} from 'rxjs/Subject';
 
 import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {AppSettings} from '../app.settings';
 
 @Component({
   templateUrl: './order-details.component.html',
@@ -23,7 +24,7 @@ export class OrderDetailsComponent implements OnInit {
   id: number;
   private route_sub: any;
   private http_sub: any;
-  order = {meals: []};
+  order = {meals: [],photo : ''};
   invited_users = [];
   joined_users = [];
   addPermession = false;
@@ -162,6 +163,10 @@ export class OrderDetailsComponent implements OnInit {
 
   viewMenu(content) {
     this._modal.open(content);
+  }
+
+  menuPhotoSrc(){
+    return AppSettings.API_ENDPOINT + '/uploads/' + this.order.photo;
   }
 
   ngOnDestroy() {

@@ -3,9 +3,10 @@ import { Router } from '@angular/router';
 
 import { AlertService } from '../_services/alert.service';
 import { UserService } from '../_services/user.service';
+import {AppSettings} from '../app.settings';
 
 import {  FileUploader } from 'ng2-file-upload/ng2-file-upload';
-const UPLOAD_URL = 'http://localhost:8090/upload/photo';
+const UPLOAD_URL = AppSettings.API_ENDPOINT + '/upload/photo';
 
 
 @Component({
