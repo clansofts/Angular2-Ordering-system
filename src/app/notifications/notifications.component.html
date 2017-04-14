@@ -7,13 +7,12 @@
 <div class="col">
   <ngb-alert *ngIf="alert">{{alert}}</ngb-alert>
   <div ngbDropdown class="d-inline-block">
-    <a class="nav-link" (click)="sendRead()" id="dropdownMenu1" ngbDropdownToggle>Notifications
+    <a href="#" class="nav-link" (click)="sendRead()" ngbDropdownToggle>
+      <i class="fa fa-globe"></i> Notifications
       <span class="badge badge-pill badge-default" *ngIf="!notificationReaded">{{countNotification}}</span>
     </a>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-      <ul class="list-group">
-        <li *ngFor="let message of messages">{{message}}</li>
-      </ul>
+    <div class="dropdown-menu">
+      <a *ngFor="let message of messages" class="dropdown-item" href="#">{{message}}</a>
     </div>
   </div>
 </div>

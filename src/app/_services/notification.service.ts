@@ -14,7 +14,6 @@ export class NotificationService {
   }
 
   sendMessage(message){
-
     this.socket.emit('add-message', message);
   }
 

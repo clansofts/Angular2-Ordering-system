@@ -9,7 +9,7 @@ export class AppComponent implements OnInit{
   title = 'app works!';
 
   constructor(
-      private authenticationService: AuthenticationService,
+      private _auth: AuthenticationService,
     ) {}
 
 
