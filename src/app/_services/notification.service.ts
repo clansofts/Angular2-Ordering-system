@@ -22,6 +22,10 @@ export class NotificationService {
     this.socket.emit('add-message', message);
   }
 
+  toMyFollowers(obj){
+    this.socket.emit('toMyFollowers',obj);
+  }
+
 
   setFollower(user: User): void {
     this.follower = user;
@@ -42,6 +46,25 @@ export class NotificationService {
   sendLogoutMessage(obj){
     this.socket.emit('logout-message', obj);
   }
+
+  getNewOrders() {
+    console.log("get new orders");
+    let observable = new Observable(
+                     observer =>
+                           {
+                              //console.log(this.socket);
+                               this.socket.on('newOrder', (data) =>
+                                         {
+                                           console.log("notify data ",data)
+                                           observer.next(data);
+                                         });
+                               return () =>
+                                         {
+                                           this.socket.disconnect();
+                                         };
+                             })
+       return observable;
+     }
 
   getMessages() {
     let observable :any = new Observable(observer => {
