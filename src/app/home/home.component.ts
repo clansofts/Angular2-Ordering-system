@@ -41,15 +41,16 @@ export class HomeComponent implements OnInit {
     }
     this.notify.getNewOrders().subscribe(message =>
                             {
-                              console.log("msg",message)
+                              console.log("msg from notify ",message)
                               this.init()
+                              console.log("relod done");
                             });
 
   }
 
   init(){
     //get My friends
-    this.friendService.getFriends(this.uerService.getCurrentUser()._id).then((friends) => {//console.log("friends result :",friends);
+    this.friendService.getFriends(this.uerService.getCurrentUser()._id).then((friends) => {console.log("friends result :",friends);
       this.friends = friends;
       console.log("my friends:", this.friends);
       var Ids = [];
@@ -62,10 +63,18 @@ export class HomeComponent implements OnInit {
       //get my friends's orders
 
       this.homeService.getFriendsOrders(this.friendsIds).then((orders) => {
-        console.log("friends result :", orders);
+        //console.log("friends result :", orders);
         this.friendsOrders = orders;
         console.log("my friendsOrders:", this.friendsOrders);
       });
     });
+  }
+  ngDoCheck(){
+    console.log("do check")
+    // this.init()
+    // console.log("relod in check");
+    this.friends=this.friends
+    this.friendsOrders=this.friendsOrders
+    this.myOrders=this.myOrders
   }
 }
