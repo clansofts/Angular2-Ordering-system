@@ -3,11 +3,12 @@ import {Observable, Subject} from "rxjs";
 import * as io from 'socket.io-client';
 import {URLSearchParams, Headers, RequestOptions, Http} from "@angular/http";
 import {User} from "../_models/user";
+import {AppSettings} from '../app.settings';
 
 @Injectable()
 export class NotificationService {
 
-  private url = 'http://localhost:8090';
+  private url = AppSettings.API_ENDPOINT + '';
   private socket;
   private follower: User;
   private subject: Subject<User> = new Subject<User>();
@@ -80,7 +81,7 @@ export class NotificationService {
   }
 
   getMessagesFromDb(id: string): Promise<any>{
-    let Url = 'http://localhost:8090/notification/list';
+    let Url = AppSettings.API_ENDPOINT + '/notification/list';
     let params = new URLSearchParams();
     params.set('user_id', id);
     let options = this.jwt();
@@ -92,7 +93,7 @@ export class NotificationService {
   }
 
   sendReadnotiState(id: string): Promise<any>{
-    let Url = 'http://localhost:8090/notification/status';
+    let Url = AppSettings.API_ENDPOINT + '/notification/status';
     let params = new URLSearchParams();
     params.set('user_id', id);
     let options = this.jwt();
