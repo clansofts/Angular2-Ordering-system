@@ -5,7 +5,7 @@ webpackJsonp([1,4],{
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(38);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UtilService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -60,10 +60,10 @@ var _a;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs__ = __webpack_require__(175);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_settings__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_settings__ = __webpack_require__(31);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -125,11 +125,11 @@ var _a, _b;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(177);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__notification_service__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_settings__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_settings__ = __webpack_require__(31);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthenticationService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -172,8 +172,9 @@ var AuthenticationService = (function () {
         if (this.getCurrentUser() != null) {
             var obj = { user_id: this.getCurrentUser()._id };
             this.notifyService.sendLogoutMessage(obj);
+            localStorage.removeItem('currentUser');
+            window.location.reload();
         }
-        localStorage.removeItem('currentUser');
     };
     AuthenticationService.prototype.getCurrentUser = function () {
         return JSON.parse(localStorage.getItem('currentUser'));
@@ -211,12 +212,12 @@ var _a, _b;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs__ = __webpack_require__(175);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__ = __webpack_require__(178);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_settings__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_settings__ = __webpack_require__(31);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GroupsService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -320,10 +321,10 @@ var _a;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise__ = __webpack_require__(178);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_settings__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_settings__ = __webpack_require__(31);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomeService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -348,7 +349,6 @@ var HomeService = (function () {
         return this.http.get(Url, options).toPromise().then(function (response) { return response.json(); });
     };
     HomeService.prototype.getFriendsOrders = function (ids) {
-        console.log("x", ids);
         var Url = __WEBPACK_IMPORTED_MODULE_3__app_settings__["a" /* AppSettings */].API_ENDPOINT + '/orders/';
         var params = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* URLSearchParams */]();
         params.set('field', "owners");
@@ -381,8 +381,8 @@ var _a;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_settings__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_settings__ = __webpack_require__(31);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return OrderService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -434,7 +434,7 @@ var _a;
 
 /***/ }),
 
-/***/ 40:
+/***/ 31:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -452,7 +452,8 @@ var AppSettings = (function () {
     }
     return AppSettings;
 }());
-AppSettings.API_ENDPOINT = 'https://iti-yala-notlop.herokuapp.com';
+//public static API_ENDPOINT = 'https://iti-yala-notlop.herokuapp.com';
+AppSettings.API_ENDPOINT = 'http://localhost:8080';
 AppSettings = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])()
 ], AppSettings);
@@ -524,7 +525,7 @@ var _a, _b;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_map__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__services_friends_service__ = __webpack_require__(87);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__services_groups_service__ = __webpack_require__(258);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__app_settings__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__app_settings__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_ng2_file_upload_ng2_file_upload__ = __webpack_require__(457);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_ng2_file_upload_ng2_file_upload___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_ng2_file_upload_ng2_file_upload__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AddOrderComponent; });
@@ -620,7 +621,7 @@ var AddOrderComponent = (function () {
             _this.myFollowers.forEach(function (follower) {
                 Ids.push(follower._id);
             });
-            _this.notiServe.toMyFollowers({ ids: Ids.join() });
+            //  this.notiServe.toMyFollowers({ids:Ids.join()});
         });
     };
     AddOrderComponent.prototype.inviteItemTmp = function (event) {
@@ -1064,33 +1065,30 @@ var HomeComponent = (function () {
     };
     HomeComponent.prototype.init = function () {
         var _this = this;
-        //get My friends
-        this.friendService.getFriends(this.uerService.getCurrentUser()._id).then(function (friends) {
-            console.log("friends result :", friends);
-            _this.friends = friends;
-            console.log("my friends:", _this.friends);
-            var Ids = [];
-            _this.friends.forEach(function (friend) {
-                console.log("=", friend._id);
-                Ids.push(friend._id);
+        if (this.uerService.getCurrentUser()._id) {
+            //get My friends
+            this.friendService.getFriends(this.uerService.getCurrentUser()._id).then(function (friends) {
+                _this.friends = friends;
+                var Ids = [];
+                _this.friends.forEach(function (friend) {
+                    Ids.push(friend._id);
+                });
+                _this.friendsIds = Ids;
+                //get my friends's orders
+                _this.homeService.getFriendsOrders(_this.friendsIds).then(function (orders) {
+                    //console.log("friends result :", orders);
+                    _this.friendsOrders = orders;
+                });
             });
-            _this.friendsIds = Ids;
-            console.log("ids", _this.friendsIds);
-            //get my friends's orders
-            _this.homeService.getFriendsOrders(_this.friendsIds).then(function (orders) {
-                //console.log("friends result :", orders);
-                _this.friendsOrders = orders;
-                console.log("my friendsOrders:", _this.friendsOrders);
-            });
-        });
+        }
+        else {
+            this.friendsOrders = null;
+        }
     };
     HomeComponent.prototype.ngDoCheck = function () {
-        console.log("do check");
-        // this.init()
-        // console.log("relod in check");
-        this.friends = this.friends;
-        this.friendsOrders = this.friendsOrders;
-        this.myOrders = this.myOrders;
+        if (!this.uerService.isLoggedIn()) {
+            this.islogged = false;
+        }
     };
     return HomeComponent;
 }());
@@ -1186,7 +1184,7 @@ var _a, _b, _c, _d, _e;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ng_bootstrap_ng_bootstrap__ = __webpack_require__(401);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_settings__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_settings__ = __webpack_require__(31);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return OrderDetailsComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1413,7 +1411,7 @@ var _a, _b;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_alert_service__ = __webpack_require__(86);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_user_service__ = __webpack_require__(167);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_settings__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_settings__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ng2_file_upload_ng2_file_upload__ = __webpack_require__(457);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ng2_file_upload_ng2_file_upload___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_ng2_file_upload_ng2_file_upload__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RegisterComponent; });
@@ -1530,8 +1528,8 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dyna
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_socket_io_client__ = __webpack_require__(986);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_socket_io_client___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_socket_io_client__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_settings__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_settings__ = __webpack_require__(31);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NotificationService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1580,7 +1578,6 @@ var NotificationService = (function () {
         var _this = this;
         console.log("get new orders");
         var observable = new __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"](function (observer) {
-            //console.log(this.socket);
             _this.socket.on('newOrder', function (data) {
                 console.log("notify data ", data);
                 observer.next(data);
@@ -1799,7 +1796,7 @@ var _a;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(163);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(57);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ng_bootstrap_ng_bootstrap__ = __webpack_require__(401);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_alert_service__ = __webpack_require__(86);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_authentication_service__ = __webpack_require__(24);
@@ -2081,29 +2078,41 @@ var FriendSearchComponent = (function () {
         this.utilSerivse = utilSerivse;
         this.following = false;
         this.blocked = false;
+        this.me = false;
         this.notifyAdd = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.notifyDelete = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.notifyUnBlock = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
     }
     FriendSearchComponent.prototype.search = function (term) {
         var _this = this;
-        if (term != '')
-            this.friendService.search({ field: "email", q: term, from: this.authService.getCurrentUser()._id })
-                .subscribe(function (data) {
-                _this.user = data[0];
-                if (typeof _this.user != 'undefined' && _this.utilSerivse.objectPropInArray(_this.friends, '_id', _this.user._id)) {
-                    _this.following = true;
-                }
-                else if (typeof _this.user != 'undefined' && _this.utilSerivse.objectPropInArray(_this.blockList, '_id', _this.user._id)) {
-                    _this.blocked = true;
-                }
-                else {
-                    _this.blocked = false;
-                    _this.following = false;
-                }
-            }, function (error) {
-                console.log(error);
-            });
+        if (term != '') {
+            if (term == this.authService.getCurrentUser().email) {
+                this.user = this.authService.getCurrentUser();
+                this.me = true;
+                this.blocked = false;
+                this.following = false;
+            }
+            else {
+                this.friendService.search({ field: "email", q: term, from: this.authService.getCurrentUser()._id })
+                    .subscribe(function (data) {
+                    _this.user = data[0];
+                    if (typeof _this.user != 'undefined' && _this.utilSerivse.objectPropInArray(_this.friends, '_id', _this.user._id)) {
+                        _this.following = true;
+                    }
+                    else if (typeof _this.user != 'undefined' && _this.utilSerivse.objectPropInArray(_this.blockList, '_id', _this.user._id)) {
+                        _this.blocked = true;
+                        _this.me = false;
+                    }
+                    else {
+                        _this.blocked = false;
+                        _this.following = false;
+                        _this.me = false;
+                    }
+                }, function (error) {
+                    console.log(error);
+                });
+            }
+        }
     };
     FriendSearchComponent.prototype.makeFreind = function () {
         var _this = this;
@@ -2217,6 +2226,7 @@ GroupInfoComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng2_notifications_src_app_components_notification_component__ = __webpack_require__(458);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng2_notifications_src_app_components_notification_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_ng2_notifications_src_app_components_notification_component__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_router__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_settings__ = __webpack_require__(31);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NotificationsComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2227,6 +2237,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -2258,12 +2269,18 @@ var NotificationsComponent = (function () {
             _this.staticAlertClosed = true;
             _this.notificationMessage['title'] = message['notification']['name'];
             _this.notificationMessage['body'] = message['notification']['body'];
-            _this.notificationMessage['icon'] = 'http://localhost:8090/uploads/' + message['notification']['avatar'];
-            _this.notifyService.setFollower(message['user']);
+            _this.notificationMessage['icon'] = __WEBPACK_IMPORTED_MODULE_6__app_settings__["a" /* AppSettings */].API_ENDPOINT + '/uploads/' + message['notification']['avatar'];
             _this.pushNotification.show();
             console.log(message);
             if (message.type == "friend") {
+                _this.notifyService.setFollower(message['user']);
                 var link = "friends";
+                _this.pushNotiLink = link;
+                _this.messages.push({ body: message.notification.body, link: link });
+            }
+            else if (message.type == "order_invitation") {
+                var link = "order-details/" + message.order_id;
+                _this.pushNotiLink = link;
                 _this.messages.push({ body: message.notification.body, link: link });
             }
         });
@@ -2271,7 +2288,7 @@ var NotificationsComponent = (function () {
     };
     NotificationsComponent.prototype.getNotiFromDb = function () {
         var _this = this;
-        if (this.authenticationService.isLoggedIn())
+        if (this.authenticationService.isLoggedIn()) {
             this.notifyService.getMessagesFromDb(this.authenticationService.getCurrentUser()._id).then(function (message) {
                 _this.notificationReaded = message.read_notification;
                 if (message) {
@@ -2283,18 +2300,25 @@ var NotificationsComponent = (function () {
                             var link = "friends";
                             _this.messages.push({ body: message['notifications'][i].body, link: link });
                         }
+                        else if (message['notifications'][i].type == "order_invitation") {
+                            var link = "order-details/" + message['notifications'][i].order_id;
+                            _this.messages.push({ body: message['notifications'][i].body, link: link });
+                        }
                     }
                     if (_this.notificationReaded) {
                         _this.countNotification = 0;
                     }
+                    _this.countNotification = message.unreaded_count;
                 }
                 else {
                     _this.cssClasses = _this.getCssClasses('normal');
                 }
             });
+        }
     };
-    NotificationsComponent.prototype.pushNotiAction = function () {
-        this.router.navigateByUrl("/");
+    NotificationsComponent.prototype.pushNotiAction = function (e) {
+        console.log("hi");
+        this.router.navigateByUrl(this.pushNotiLink);
     };
     NotificationsComponent.prototype.ngOnDestroy = function () {
         this.connection.unsubscribe();
@@ -2671,7 +2695,7 @@ exports = module.exports = __webpack_require__(19)();
 
 
 // module
-exports.push([module.i, ".card {\n  margin-bottom: 25px;\n}\n\n.card-img-holder {\n  position: relative;\n}\n\n.card-badge {\n  position: absolute;\n  bottom: 5px;\n  left: 5px;\n}\n\n.card-friend-comp{\n  margin-top: 30px;\n  margin-right: 10px;\n  width: 8rem;\n}\n\n.badge-success {\n  background-color: #5cb85c;\n}\n", ""]);
+exports.push([module.i, ".card {\n  margin-bottom: 25px;\n}\n\n.card-img-holder {\n  position: relative;\n}\n\n.card-badge {\n  position: absolute;\n  bottom: 5px;\n  left: 5px;\n}\n\n.card-friend-comp{\n\n  margin-top: 30px;\n  margin-right: 10px;\n  width: 8rem;\n}\n\n\n.card-friend-comp .card-title {\n  font-size: .67rem;\n}\n\n.badge-success {\n  background-color: #5cb85c;\n}\n\n.card-img-holder img {\n  width: 238px;\n  height: 178.5px;\n}\n", ""]);
 
 // exports
 
@@ -2712,7 +2736,7 @@ module.exports = "<div>\n\t<button class=\"btn btn-lg btn-social btn-facebook\" 
 /***/ 720:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"input-group\">\n  <input type=\"text\" class=\"form-control small\" #searchBox  (keyup)=\"search(searchBox.value)\" placeholder=\"Search for Friends...\">\n  <span class=\"input-group-btn\">\n    <button class=\"btn btn-secondary\" (click)=\"search(searchBox.value)\" type=\"button\">Search!</button>\n  </span>\n</div>\n<div *ngIf=\"user\">\n  <user-card [user]=\"user\" [button]=\"{text:'Follow',class:'btn-success'}\" (buttonClicked)=\"makeFreind()\" *ngIf=\"!following && !blocked\"></user-card>\n  <user-card [user]=\"user\" [button]=\"{text:'Un Follow',class:'btn-danger'}\" (buttonClicked)=\"deleteFollower()\" *ngIf=\"following && !blocked\"></user-card>\n  <user-card [user]=\"user\" [button]=\"{text:'Un Block',class:'btn-success'}\" (buttonClicked)=\"unBlockFollower()\" *ngIf=\"!following && blocked\"></user-card>\n\n</div>\n"
+module.exports = "<div class=\"input-group\">\n  <input type=\"text\" class=\"form-control small\" #searchBox  (keyup)=\"search(searchBox.value)\" placeholder=\"Search for Friends...\">\n  <span class=\"input-group-btn\">\n    <button class=\"btn btn-secondary\" (click)=\"search(searchBox.value)\" type=\"button\">Search!</button>\n  </span>\n</div>\n<div *ngIf=\"user\">\n  <user-card [user]=\"user\" [button]=\"{text:'Follow',class:'btn-success'}\" (buttonClicked)=\"makeFreind()\" *ngIf=\"!following && !blocked && !me\"></user-card>\n  <user-card [user]=\"user\" [button]=\"{text:'Un Follow',class:'btn-danger'}\" (buttonClicked)=\"deleteFollower()\" *ngIf=\"following && !blocked && !me\"></user-card>\n  <user-card [user]=\"user\" [button]=\"{text:'Un Block',class:'btn-success'}\" (buttonClicked)=\"unBlockFollower()\" *ngIf=\"!following && blocked && !me\"></user-card>\n  <user-card [user]=\"user\" [button]=\"{text:'Me',class:'btn-success'}\"  *ngIf=\"me\"></user-card>\n\n</div>\n"
 
 /***/ }),
 
@@ -2754,7 +2778,7 @@ module.exports = "<div class=\"row\">\n  <div class=\"col-md-6 offset-md-3\">\n\
 /***/ 726:
 /***/ (function(module, exports) {
 
-module.exports = "<push-notification #notifications\n                   [title]=\"notificationMessage.title\"\n                   [body]=\"notificationMessage.body\"\n                   [icon]=\"notificationMessage.icon\" (load)=\"getNotiObj(notifications)\">>\n</push-notification>\n<div class=\"col\">\n  <ngb-alert *ngIf=\"alert\">{{alert}}</ngb-alert>\n  <div ngbDropdown class=\"d-inline-block\">\n    <a href=\"#\" class=\"nav-link\" (click)=\"sendRead()\" ngbDropdownToggle>\n      <i class=\"fa fa-globe\"></i> Notifications\n      <span class=\"badge badge-pill badge-default\" *ngIf=\"!notificationReaded\">{{countNotification}}</span>\n    </a>\n    <div class=\"dropdown-menu\">\n      <a *ngFor=\"let message of messages\" class=\"dropdown-item\" [routerLink]=\"message.link\">{{message.body}}</a>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<push-notification #notifications\n                   [title]=\"notificationMessage.title\"\n                   [body]=\"notificationMessage.body\"\n                   [icon]=\"notificationMessage.icon\"  (load)=\"getNotiObj(notifications)\" (action)=\"pushNotiAction($event)\">\n</push-notification>\n<div class=\"col\">\n  <ngb-alert *ngIf=\"alert\">{{alert}}</ngb-alert>\n  <div ngbDropdown class=\"d-inline-block\">\n    <a  class=\"nav-link\" (click)=\"sendRead()\" ngbDropdownToggle>\n      <i class=\"fa fa-globe\"></i> Notifications\n      <span class=\"badge badge-pill badge-default\" *ngIf=\"!notificationReaded\">{{countNotification}}</span>\n    </a>\n    <div class=\"dropdown-menu\">\n      <a *ngFor=\"let message of messages\" class=\"dropdown-item\" [routerLink]=\"message.link\">{{message.body}}</a>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -2782,7 +2806,7 @@ module.exports = "<div class=\"row\">\n  <div class=\"col-md-6 offset-md-3\">\n\
 /***/ 730:
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"user.name\" [ngClass]=\"getCssClasses()\">\n  <div class=\"card-img-holder\">\n    <img class=\"card-img-top img-fluid avatar\" [src]=\"_auth.userAvatarSrc(user)\" alt=\"{{user.name}}\">\n    <span *ngIf=\"badge\" class=\"card-badge badge {{badge.class}}\"><i class=\"fa fa-{{badge.icon}}\"></i> {{badge.text}}</span>\n  </div>\n  <div class=\"card-block\">\n    <strong class=\"card-title\">{{user.name}}</strong>\n    <button *ngIf=\"button\" class=\"btn btn-sm {{button.class}}\" (click)=\"doClick($event)\">{{button.text}}</button>\n  </div>\n</div>\n"
+module.exports = "<div *ngIf=\"user.name\" [ngClass]=\"getCssClasses()\">\n  <div class=\"card-img-holder\">\n    <img  class=\"card-img-top img-fluid avatar\" [src]=\"_auth.userAvatarSrc(user)\" alt=\"{{user.name}}\">\n    <span *ngIf=\"badge\" class=\"card-badge badge {{badge.class}}\"><i class=\"fa fa-{{badge.icon}}\"></i> {{badge.text}}</span>\n  </div>\n  <div class=\"card-block\">\n    <strong class=\"card-title\">{{user.name}}</strong>\n    <button *ngIf=\"button\" class=\"btn btn-sm {{button.class}}\" (click)=\"doClick($event)\">{{button.text}}</button>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -2857,12 +2881,12 @@ var _a;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise__ = __webpack_require__(178);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs__ = __webpack_require__(175);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_settings__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_settings__ = __webpack_require__(31);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FriendsService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
