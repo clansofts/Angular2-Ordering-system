@@ -71,7 +71,7 @@ export class AddOrderComponent implements OnInit {
                                                                                   this.myFollowers.forEach(function(follower){
                                                                                     Ids.push(follower._id)
                                                                                   })
-                                                                                  this.notiServe.toMyFollowers({ids:Ids.join()});
+                                                                                //  this.notiServe.toMyFollowers({ids:Ids.join()});
                                                                                 })
   }
 
@@ -92,9 +92,7 @@ export class AddOrderComponent implements OnInit {
   _search = function (data) {
     return (this.invite_by === "Friends") ? this._friend.search(data) : this._groups.search(data);
   };
-
   formatter = (x: {name: string}) => x.name;
-
   inviteItemTmp(event) {
     this.tmp.invite = event.item;
   }

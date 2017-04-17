@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, DoCheck, OnChanges, OnInit} from '@angular/core';
 import {HomeService} from "../_services/home.service";
 import { User } from '../_models/user';
 import {UtilService} from "../_services/util.service";
@@ -14,7 +14,7 @@ import {NotificationService} from "../_services/notification.service";
   styleUrls: ['./home.component.css'],
   providers:[HomeService]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, DoCheck{
 
   currentUser: User;
   friends:User[]=[];
@@ -42,39 +42,39 @@ export class HomeComponent implements OnInit {
     this.notify.getNewOrders().subscribe(message =>
                             {
                               console.log("msg from notify ",message)
-                              this.init()
+                              this.init();
                               console.log("relod done");
                             });
 
   }
 
   init(){
-    //get My friends
-    this.friendService.getFriends(this.uerService.getCurrentUser()._id).then((friends) => {console.log("friends result :",friends);
-      this.friends = friends;
-      console.log("my friends:", this.friends);
-      var Ids = [];
-      this.friends.forEach(function (friend) {
-        console.log("=", friend._id);
-        Ids.push(friend._id)
-      });
-      this.friendsIds = Ids;
-      console.log("ids", this.friendsIds);
-      //get my friends's orders
+    if (this.uerService.getCurrentUser()._id) {
+      //get My friends
+      this.friendService.getFriends(this.uerService.getCurrentUser()._id).then((friends) => {
+        this.friends = friends;
+        var Ids = [];
+        this.friends.forEach(function (friend) {
+          Ids.push(friend._id)
+        });
+        this.friendsIds = Ids;
+        //get my friends's orders
 
-      this.homeService.getFriendsOrders(this.friendsIds).then((orders) => {
-        //console.log("friends result :", orders);
-        this.friendsOrders = orders;
-        console.log("my friendsOrders:", this.friendsOrders);
+        this.homeService.getFriendsOrders(this.friendsIds).then((orders) => {
+          //console.log("friends result :", orders);
+          this.friendsOrders = orders;
+        });
       });
-    });
+    }
+    else {
+      this.friendsOrders = null;
+    }
   }
   ngDoCheck(){
-    console.log("do check")
-    // this.init()
-    // console.log("relod in check");
-    this.friends=this.friends
-    this.friendsOrders=this.friendsOrders
-    this.myOrders=this.myOrders
+    if (!this.uerService.isLoggedIn())
+    {
+      this.islogged = false;
+    }
+
   }
 }

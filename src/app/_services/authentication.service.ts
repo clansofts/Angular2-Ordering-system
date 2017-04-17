@@ -42,8 +42,9 @@ export class AuthenticationService {
         {
           let obj =  {user_id : this.getCurrentUser()._id};
           this.notifyService.sendLogoutMessage(obj);
+          localStorage.removeItem('currentUser');
+          window.location.reload();
         }
-        localStorage.removeItem('currentUser');
     }
 
 
@@ -58,7 +59,7 @@ export class AuthenticationService {
     userAvatarSrc(user){
       if (user.avatar) {
         if (user.facebookID) {
-          return user.avatar
+          return user.avatar;
         }else{
           return AppSettings.API_ENDPOINT + '/uploads/' + user.avatar;
         }

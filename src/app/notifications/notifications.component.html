@@ -1,12 +1,12 @@
 <push-notification #notifications
                    [title]="notificationMessage.title"
                    [body]="notificationMessage.body"
-                   [icon]="notificationMessage.icon" (load)="getNotiObj(notifications)">>
+                   [icon]="notificationMessage.icon"  (load)="getNotiObj(notifications)" (action)="pushNotiAction($event)">
 </push-notification>
 <div class="col">
   <ngb-alert *ngIf="alert">{{alert}}</ngb-alert>
   <div ngbDropdown class="d-inline-block">
-    <a href="#" class="nav-link" (click)="sendRead()" ngbDropdownToggle>
+    <a  class="nav-link" (click)="sendRead()" ngbDropdownToggle>
       <i class="fa fa-globe"></i> Notifications
       <span class="badge badge-pill badge-default" *ngIf="!notificationReaded">{{countNotification}}</span>
     </a>

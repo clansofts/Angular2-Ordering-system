@@ -13,11 +13,22 @@
 }
 
 .card-friend-comp{
+
   margin-top: 30px;
   margin-right: 10px;
   width: 8rem;
 }
 
+
+.card-friend-comp .card-title {
+  font-size: .67rem;
+}
+
 .badge-success {
   background-color: #5cb85c;
+}
+
+.card-img-holder img {
+  width: 238px;
+  height: 178.5px;
 }

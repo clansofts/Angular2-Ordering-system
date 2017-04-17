@@ -23,48 +23,58 @@ export class FriendSearchComponent implements OnInit {
   following: boolean = false;
   blocked: boolean = false;
   deleteFriend: User;
+  me: boolean = false;
   @Input() friends: User[];
   @Input() blockList: User[];
   @Output() notifyAdd: EventEmitter<User> = new EventEmitter<User>();
   @Output() notifyDelete: EventEmitter<User> = new EventEmitter<User>();
   @Output() notifyUnBlock: EventEmitter<User> = new EventEmitter<User>();
-  constructor(
-    private friendService: FriendsService,
-    private authService: AuthenticationService,
-    private  utilSerivse: UtilService
-  ) {}
+
+  constructor(private friendService: FriendsService,
+              private authService: AuthenticationService,
+              private  utilSerivse: UtilService) {
+  }
 
   search(term: string): void {
-    if (term != '')
-      this.friendService.search({field: "email", q: term,from:this.authService.getCurrentUser()._id})
-        .subscribe(
-          data => {
-            this.user = data[0];
-            if(typeof this.user != 'undefined' && this.utilSerivse.objectPropInArray(this.friends,'_id',this.user._id))
-            {
-              this.following = true;
-            }else if(typeof this.user != 'undefined' && this.utilSerivse.objectPropInArray(this.blockList,'_id',this.user._id))
-            {
-              this.blocked = true;
-            }
-            else {
-              this.blocked = false;
-              this.following = false;
-            }
+    if (term != '') {
+      if (term ==  this.authService.getCurrentUser().email)
+      {
+        this.user = this.authService.getCurrentUser();
+        this.me = true;
+        this.blocked = false;
+        this.following = false;
 
-          },
-          error => {
-            console.log(error)
-          });
+      }else {
+        this.friendService.search({field: "email", q: term, from: this.authService.getCurrentUser()._id})
+          .subscribe(
+            data => {
+              this.user = data[0];
+              if (typeof this.user != 'undefined' && this.utilSerivse.objectPropInArray(this.friends, '_id', this.user._id)) {
+                this.following = true;
+              } else if (typeof this.user != 'undefined' && this.utilSerivse.objectPropInArray(this.blockList, '_id', this.user._id)) {
+                this.blocked = true;
+                this.me = false;
+              }
+              else {
+                this.blocked = false;
+                this.following = false;
+                this.me = false;
+              }
+
+            },
+            error => {
+              console.log(error)
+            });
+      }
+    }
   }
 
   makeFreind(): void {
-      this.query = {reqFrom :this.authService.getCurrentUser()._id,reqTo:this.user._id};
-      this.friendService.makeFriendShip(this.query)
-       .subscribe(
+    this.query = {reqFrom: this.authService.getCurrentUser()._id, reqTo: this.user._id};
+    this.friendService.makeFriendShip(this.query)
+      .subscribe(
         data => {
-          if (!data.error)
-          {
+          if (!data.error) {
             this.notifyAdd.emit(this.user);
             this.user = null;
           }
@@ -74,17 +84,17 @@ export class FriendSearchComponent implements OnInit {
         });
   }
 
-  deleteFollower(): void{
-    let query = {reqFrom :this.authService.getCurrentUser()._id,reqTo:this.user._id};
+  deleteFollower(): void {
+    let query = {reqFrom: this.authService.getCurrentUser()._id, reqTo: this.user._id};
     this.friendService.deleteFriend(query)
       .then((deleteFriend) => {
         this.deleteFriend = deleteFriend;
         this.notifyDelete.emit(this.user);
         this.user = null;
-    });
+      });
   }
 
-  unBlockFollower(): any{
+  unBlockFollower(): any {
     this.notifyUnBlock.emit(this.user);
     this.user = null;
   }

@@ -49,10 +49,9 @@ export class NotificationService {
 
   getNewOrders() {
     console.log("get new orders");
-    let observable = new Observable(
+    let observable :any = new Observable(
                      observer =>
                            {
-                              //console.log(this.socket);
                                this.socket.on('newOrder', (data) =>
                                          {
                                            console.log("notify data ",data)

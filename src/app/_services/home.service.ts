@@ -19,7 +19,6 @@ export class HomeService {
   }
 
   getFriendsOrders(ids:string[]){
-    console.log("x",ids)
     let Url=AppSettings.API_ENDPOINT + '/orders/';
     let params = new URLSearchParams();
     params.set('field', "owners");
