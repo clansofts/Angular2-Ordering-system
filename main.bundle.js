@@ -452,8 +452,7 @@ var AppSettings = (function () {
     }
     return AppSettings;
 }());
-//public static API_ENDPOINT = 'https://iti-yala-notlop.herokuapp.com';
-AppSettings.API_ENDPOINT = 'http://localhost:8080';
+AppSettings.API_ENDPOINT = 'https://iti-yala-notlop.herokuapp.com';
 AppSettings = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])()
 ], AppSettings);
