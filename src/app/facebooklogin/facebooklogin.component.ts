@@ -25,7 +25,7 @@ export class FacebookloginComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private alertService: AlertService,
-  	) { 
+  	) {
 
   	FB.init({
             appId      : '273911746390586',
@@ -34,7 +34,6 @@ export class FacebookloginComponent implements OnInit {
             xfbml      : true,  // parse social plugins on this page
             version    : 'v2.5' // use graph api version 2.5
         });
-
   }
 
   onFacebookLoginClick() {
@@ -60,23 +59,23 @@ export class FacebookloginComponent implements OnInit {
         error => {
           self.alertService.error(error);
           self.loading = false;
-        });      
+        });
 
            })
         }, {scope: 'public_profile,email'});
         FB.getLoginStatus(response => {
             this.statusChangeCallback(response);
-           
+
         });
     }
 
   statusChangeCallback(resp) {
         if (resp.status === 'connected') {
-        
+
          var userID = resp.authResponse.userID
-        		
+
          this.loading = true;
-         
+
          this.authenticationService.loginFB(userID)
       	.subscribe(
         data => {
@@ -87,25 +86,25 @@ export class FacebookloginComponent implements OnInit {
         error => {
           this.alertService.error(error);
           this.loading = false;
-        });	
+        });
 
         }else if (resp.status === 'not_authorized') {
             console.log("not authorized to facebook");
         }else {
-           console.log("hello callback from facbooklogin component"); 
+           console.log("hello callback from facbooklogin component");
         }
-       
-       
-    };  
- 
+
+
+    };
+
   ngOnInit() {
-  
+
   	  this.authenticationService.logout();
           this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 
      //
-  	// 
-  	
+  	//
+
   }
 
 }

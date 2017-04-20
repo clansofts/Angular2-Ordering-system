@@ -48,9 +48,8 @@ export class NotificationsComponent implements OnInit, OnDestroy {
       this.staticAlertClosed = true;
       this.notificationMessage['title'] = message['notification']['name'];
       this.notificationMessage['body'] = message['notification']['body'];
-      this.notificationMessage['icon'] = AppSettings.API_ENDPOINT+'/uploads/'+message['notification']['avatar'];
+      this.notificationMessage['icon'] = message['notification']['avatar'];
       this.pushNotification.show();
-      console.log(message);
       if (message.type == "friend") {
         this.notifyService.setFollower(message['user']);
         let link = "friends";
