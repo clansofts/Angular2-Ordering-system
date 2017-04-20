@@ -22,7 +22,7 @@ export class AuthenticationService {
                 let user = response.json();
                 if (user && user.token) {
                   localStorage.setItem('currentUser', JSON.stringify(user));
-                  window.location.replace("/");
+                  window.location.replace("/Angular2-Ordering-system/");
 
                 }
             });
@@ -34,7 +34,7 @@ export class AuthenticationService {
             let user = response.json();
             if (user && user.token){
               localStorage.setItem('currentUser', JSON.stringify(user));
-              window.location.replace("/");
+              window.location.replace("/Angular2-Ordering-system");
             }
           });
 
