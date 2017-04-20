@@ -156,7 +156,7 @@ var AuthenticationService = (function () {
             var user = response.json();
             if (user && user.token) {
                 localStorage.setItem('currentUser', JSON.stringify(user));
-                window.location.replace("/");
+                window.location.replace("/Angular2-Ordering-system/");
             }
         });
     };
@@ -166,7 +166,7 @@ var AuthenticationService = (function () {
             var user = response.json();
             if (user && user.token) {
                 localStorage.setItem('currentUser', JSON.stringify(user));
-                window.location.replace("/");
+                window.location.replace("/Angular2-Ordering-system");
             }
         });
     };
@@ -2480,7 +2480,7 @@ exports = module.exports = __webpack_require__(19)();
 
 
 // module
-exports.push([module.i, "body {\n\n}\n\n.navbar {\n  margin-top: 20px;\n  margin-bottom: 20px;\n}\n\n\n.avatar{\n  background: url(\"/https:/github.com/muhammad-habib/Angular2-Ordering-system/src/assets/images/default-avatar.jpg\");\n}\n\n\n.navbar-avatar {\n  width: 32px;\n  height: 32px;\n  margin-bottom: -.5rem;\n  margin-top: -.5rem;\n}\n", ""]);
+exports.push([module.i, "body {\n\n}\n\n.navbar {\n  margin-top: 20px;\n  margin-bottom: 20px;\n}\n\n\n.avatar{\n  background: url(\"/https:/muhammad-habib.github.io/Angular2-Ordering-system/src/assets/images/default-avatar.jpg\");\n}\n\n\n.navbar-avatar {\n  width: 32px;\n  height: 32px;\n  margin-bottom: -.5rem;\n  margin-top: -.5rem;\n}\n", ""]);
 
 // exports
 
