@@ -29,8 +29,6 @@ export class NotificationService {
 
   setFollower(user: User): void {
     this.follower = user;
-    console.log("from serv");
-    console.log(user);
     this.subject.next(user);
   }
 
@@ -39,7 +37,6 @@ export class NotificationService {
   }
 
   sendLoginMessage(obj){
-    console.log(this.socket);
     this.socket.emit('login-message', obj);
   }
 
@@ -48,13 +45,11 @@ export class NotificationService {
   }
 
   getNewOrders() {
-    console.log("get new orders");
     let observable :any = new Observable(
                      observer =>
                            {
                                this.socket.on('newOrder', (data) =>
                                          {
-                                           console.log("notify data ",data)
                                            observer.next(data);
                                          });
                                return () =>

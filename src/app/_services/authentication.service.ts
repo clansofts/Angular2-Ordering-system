@@ -22,6 +22,8 @@ export class AuthenticationService {
                 let user = response.json();
                 if (user && user.token) {
                   localStorage.setItem('currentUser', JSON.stringify(user));
+                  window.location.replace("/");
+
                 }
             });
     }
@@ -32,6 +34,7 @@ export class AuthenticationService {
             let user = response.json();
             if (user && user.token){
               localStorage.setItem('currentUser', JSON.stringify(user));
+              window.location.replace("/");
             }
           });
 

@@ -34,6 +34,16 @@ export class FacebookloginComponent implements OnInit {
             xfbml      : true,  // parse social plugins on this page
             version    : 'v2.5' // use graph api version 2.5
         });
+
+  	//to test in localhost
+    // FB.init({
+    //   appId      : '385244185170219',
+    //   cookie     : false,  // enable cookies to allow the server to access
+    //   // the session
+    //   xfbml      : true,  // parse social plugins on this page
+    //   version    : 'v2.8' // use graph api version 2.5
+    // });
+
   }
 
   onFacebookLoginClick() {
@@ -65,7 +75,6 @@ export class FacebookloginComponent implements OnInit {
         }, {scope: 'public_profile,email'});
         FB.getLoginStatus(response => {
             this.statusChangeCallback(response);
-
         });
     }
 
