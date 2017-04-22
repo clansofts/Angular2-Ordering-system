@@ -93,7 +93,7 @@ export class GroupsComponent implements OnInit {
     console.log("noGroups",this.noGroups)
     if(this.groups.length>0){
       this.noGroups=false
-      this.currentGroup=this.groups[0]
+      //this.currentGroup=this.groups[0]
     }
     else{
       this.noGroups=true
@@ -146,7 +146,7 @@ export class GroupsComponent implements OnInit {
       this.members = members['members'];
       console.log("members", this.members)
     });
-    console.log(this.currentGroup);
+    console.log("currnet group : ",this.currentGroup);
   }
 
   inviteItemTmp(event) {

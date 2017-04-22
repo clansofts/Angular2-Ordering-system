@@ -18,7 +18,7 @@
   <div   class="col-md-12">
 
     <ul class="list-group">
-      <li class="list-group-item justify-content-between " *ngFor="let group of groups" [class.selected]="hers === selectedHero" (click)="onSelect(group)">
+      <li class="list-group-item justify-content-between group " *ngFor="let group of groups" [class.selected]="group === currentGroup" (click)="onSelect(group)">
 
          {{group.name}}
         <span class="badge badge-default badge-pill">{{group?.members.length}} </span>
